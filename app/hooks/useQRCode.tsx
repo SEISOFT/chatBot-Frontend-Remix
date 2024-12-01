@@ -1,0 +1,32 @@
+import { useState, useEffect } from "react";
+
+export const useQRCode = () => {
+  const [qrCode, setQRCode] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const fetchQRCode = async () => {
+    setIsLoading(true);
+    setError(null); // Limpiar errores previos
+    try {
+      const response = await fetch("http://localhost:3000/api-whatsapp/qr");
+      if (!response.ok) {
+        throw new Error("Failed to fetch QR code");
+      }
+      const data = await response.json();
+      setQRCode(data.qr);
+    } catch (error) {
+      console.error("Error fetching QR code:", error);
+      setError("Failed to fetch QR code");
+      setQRCode(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchQRCode(); // Obtener el QR al montar el componente
+  }, []);
+
+  return { qrCode, error, isLoading, refetch: fetchQRCode };
+};

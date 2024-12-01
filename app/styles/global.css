@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Retroguard";
+  src: url("app/assets/fonts/Retroguard.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+.login-title {
+  font-family: "Retroguard" !important;
+}
