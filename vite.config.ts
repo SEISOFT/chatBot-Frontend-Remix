@@ -11,7 +11,23 @@ export default defineConfig({
         v3_relativeSplatPath: true,
         v3_throwAbortReason: true,
       },
+      routes(defineRoutes) {
+        return defineRoutes((route) => {
+          route("/", "pages/_index.tsx", { index: true });
+          route("login", "pages/login/layout.tsx", () => {
+            route("", "pages/login/login.tsx", { index: true });
+          });
+          route("dashboard", "pages/dashboard/layout.tsx", () => {
+            route("", "pages/dashboard/dashboard.tsx", { index: true });
+          });
+        });
+      },
     }),
     tsconfigPaths(),
   ],
+  build: {
+    target: "esnext", // Apunta a navegadores modernos
+    minify: "esbuild", // Usa esbuild para una compilación rápida y eficiente
+    outDir: "dist", // Carpeta de salida
+  },
 });

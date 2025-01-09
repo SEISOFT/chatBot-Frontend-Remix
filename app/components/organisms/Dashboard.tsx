@@ -1,6 +1,4 @@
 import { Box, Flex, Heading, Spinner, Button, Text } from "@chakra-ui/react";
-import { useNavigate } from "@remix-run/react";
-import { useEffect } from "react";
 import { Sidebar } from "../molecules/navigation/SideBar";
 import { Navbar } from "../molecules/navigation/Navbar";
 import { useAuth } from "~/hooks/useAuth";
@@ -9,17 +7,8 @@ import { QRCodeCanvas } from "qrcode.react";
 
 export const Dashboard = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const { qrCode, error, isLoading, refetch } = useQRCode();
 
-  useEffect(() => {
-    if (!user) {
-      console.log("usuario no esta logueado");
-      navigate("/login");
-    } else {
-      console.log(user);
-    }
-  }, [user, navigate]);
 
   return (
     <Box>

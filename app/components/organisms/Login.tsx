@@ -13,7 +13,7 @@ import { colors } from "../../styles/colors";
 export const Login = () => {
   const navigate = useNavigate();
   const showSharkyImage = useBreakpointValue({ base: false, lg: true });
-  // Maneja la redirección después del login exitoso
+
   const handleLoginSuccess = () => {
     console.log("logueo exitoso");
     navigate("/dashboard");
@@ -59,7 +59,13 @@ export const Login = () => {
           </Flex>
           <Text textAlign={"center"}>
             Todos los derechos reservados.
-            <Link variant={"primary"} href="https://softwow.com.co" target="_blank"> © 2024 Softwow</Link>
+            <Link
+              variant={"primary"}
+              href="https://softwow.com.co"
+              target="_blank"
+            >
+              © 2024 Softwow
+            </Link>
           </Text>
         </Flex>
         {/* Sección de la Imagen de Sharky */}

@@ -1,60 +1,55 @@
-import { ReactNode, useEffect, useState } from "react";
+import { config } from "config";
+import { ReactNode, useEffect, useMemo, useCallback } from "react";
 import { AuthContext } from "~/contexts/AuthContext";
 
 interface AuthProviderProps {
   children: ReactNode;
+  onAuthSuccess: (token: string) => void; // Notificar al UserProvider
 }
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<{ email: string } | null>(null);
-
+export const AuthProvider = ({ children, onAuthSuccess }: AuthProviderProps) => {
+  // Validar el token JWT almacenado
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem(config.JWT_SECRET);
     if (token) {
-      const email = localStorage.getItem("email");
-      if (email) {
-        setUser({ email });
-      }
+      onAuthSuccess(token); // Notificar al UserProvider que el usuario está autenticado
     }
-  }, []);
+  }, [onAuthSuccess]);
 
-  const login = async (email: string, password: string) => {
+  // Función de inicio de sesión
+  const login = useCallback(async (email: string, password: string) => {
     try {
-      const response = await fetch("http://localhost:4001/api/auth/login", {
+      const response = await fetch(`${config.API_URL}/auth/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
-        throw new Error(
-          "Error al iniciar sesión. Por favor, verifica tus credenciales."
-        );
+        throw new Error("Credenciales inválidas.");
       }
 
-      const data = await response.json();
-      const { token } = data;
+      const { token } = await response.json();
+      localStorage.setItem(config.JWT_SECRET, token);
 
-      localStorage.setItem("jwt", token);
-      localStorage.setItem("email", email);
-      setUser({ email });
+      onAuthSuccess(token); // Notificar al UserProvider
     } catch (error) {
-      console.error("Error en login:", error);
+      console.error("Error al iniciar sesión:", error);
       throw error;
     }
-  };
+  }, [onAuthSuccess]);
 
-  const logout = () => {
-    localStorage.removeItem("jwt");
+  // Función de cierre de sesión
+  const logout = useCallback(() => {
+    localStorage.removeItem(config.JWT_SECRET);
     localStorage.removeItem("email");
-    setUser(null);
-  };
+  }, []);
 
-  return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+  // Memoizar el valor del contexto
+  const contextValue = useMemo(
+    () => ({ login, logout }),
+    [login, logout]
   );
+
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };

@@ -9,7 +9,7 @@ export const useQRCode = () => {
     setIsLoading(true);
     setError(null); // Limpiar errores previos
     try {
-      const response = await fetch("http://localhost:3000/api-whatsapp/qr");
+      const response = await fetch("https://chatbot-backend-1-nuoq.onrender.com/api-whatsapp/qr");
       if (!response.ok) {
         throw new Error("Failed to fetch QR code");
       }
