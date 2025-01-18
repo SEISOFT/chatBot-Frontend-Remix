@@ -17,6 +17,7 @@ export interface User {
 export interface UserContextProps {
   user: User | null;
   setUser: (user: User) => void;
+  isLoading: boolean;
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(

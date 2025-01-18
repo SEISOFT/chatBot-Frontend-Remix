@@ -7,14 +7,19 @@ interface ProtectedRouteProps {
 }
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
+    if (!isLoading && !user) {
       navigate("/login", { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, isLoading, navigate]);
 
-  return user ? <>{children}</> : null;
+  // Mientras se está cargando el usuario, puedes mostrar un loader
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  return <>{children}</>;
 };

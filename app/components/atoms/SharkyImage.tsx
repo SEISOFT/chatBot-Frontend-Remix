@@ -1,8 +1,6 @@
-import { Image } from "@chakra-ui/react";
+import { Image, ImageProps } from "@chakra-ui/react";
 import Sharky from "../../assets/images/sharky.png";
 
-export const SharkyImage = () => {
-  return (
-    <Image src={Sharky} alt="Sharky" />
-  );
+export const SharkyImage: React.FC<ImageProps> = (props) => {
+  return <Image src={Sharky} alt="Sharky" {...props} />;
 };

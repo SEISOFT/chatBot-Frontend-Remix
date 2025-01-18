@@ -1,10 +1,10 @@
 import { Outlet } from "@remix-run/react";
-import { UserProvider } from "~/providers/UserProvider";
+import { AuthProvider } from "~/providers/AuthProvider";
 
 export default function LoginLayout() {
   return (
-    <UserProvider>
+    <AuthProvider>
       <Outlet />
-    </UserProvider>
+    </AuthProvider>
   );
 }

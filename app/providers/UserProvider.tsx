@@ -1,6 +1,6 @@
-import { useState, ReactNode, useMemo } from "react";
+import { useState, ReactNode, useMemo, useEffect, useCallback } from "react";
 import { UserContext, User } from "~/contexts/UserContext";
-import { AuthProvider } from "./AuthProvider";
+import { config } from "config";
 
 interface UserProviderProps {
   children: ReactNode;
@@ -8,29 +8,52 @@ interface UserProviderProps {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Función para manejar el éxito de autenticación
-  const handleAuthSuccess = (token: string) => {
-    // Aquí podrías hacer una petición a tu API para obtener más información del usuario
-    console.log(token)
-    setUser({
-      username: "newUser",
-      email:"test@test.com",
-      password: "*****",
-      phone: "123456789",
-    });
-  };
+  const getUser = useCallback(async (token: string) => {
+    try {
+      console.log("Token encontrado:", token);
+      const response = await fetch(`${config.CORE_URL}/user/get-user`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("JWT inválido");
+      }
+
+      const { user } = await response.json();
+      setUser(user);
+      console.log("Usuario obtenido:", user);
+    } catch (error) {
+      console.error("Error al obtener usuario:", error);
+      localStorage.removeItem(config.JWT_SECRET);
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+
+  useEffect(() => {
+    const token = localStorage.getItem(config.JWT_SECRET);
+    if (token) {
+      getUser(token);
+    } else {
+      console.log("No hay un token autenticado");
+      setIsLoading(false);
+    }
+  }, [getUser]);
 
   const contextValue = useMemo(
-    () => ({ user, setUser }),
-    [user]
+    () => ({ user, setUser, isLoading }),
+    [user, isLoading]
   );
 
   return (
-    <UserContext.Provider value={contextValue}>
-      <AuthProvider onAuthSuccess={handleAuthSuccess}>
-        {children}
-      </AuthProvider>
-    </UserContext.Provider>
+    <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
   );
 };

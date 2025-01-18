@@ -1,6 +1,7 @@
 import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
   plugins: [
@@ -18,9 +19,28 @@ export default defineConfig({
             route("", "pages/login/login.tsx", { index: true });
           });
           route("dashboard", "pages/dashboard/layout.tsx", () => {
-            route("", "pages/dashboard/dashboard.tsx", { index: true });
+            route("", "pages/dashboard/home.tsx", { index: true });
           });
         });
+      },
+    }),
+    svgr({
+      include: ["**/*.svg?react", "**/*.svg?r"],
+      svgrOptions: {
+        icon: true,
+        replaceAttrValues: {
+          fill: "currentColor",
+        },
+        svgo: true,
+        svgProps: {
+          clipRule: "evenodd",
+          fill: "currentColor",
+          fillRule: "evenodd",
+          height: "1em",
+          preserveAspectRatio: "xMidYMid meet",
+          role: "img",
+          width: "1em",
+        },
       },
     }),
     tsconfigPaths(),
