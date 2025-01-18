@@ -74,10 +74,10 @@ export const Navbar: React.FC = () => {
           <AvatarBanner />
           <Divider />
           <Box>
-            {navbarItems.map((item, index) => (
+            {navbarItems.map((item) => (
               <MenuItem
                 icon={item.icon}
-                key={index}
+                key={item.label}
                 onClick={() => {
                   if (item.action) {
                     item.action();

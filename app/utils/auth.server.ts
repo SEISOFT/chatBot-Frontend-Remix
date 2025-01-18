@@ -1,4 +1,4 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+/* import jwt, { JwtPayload } from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "my_super_secret_key";
 
@@ -19,3 +19,4 @@ export function verifyJWT(token: string): JwtPayload | null {
     return null;
   }
 }
+ */

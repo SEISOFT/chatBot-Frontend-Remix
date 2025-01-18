@@ -7,7 +7,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { SharkyImage } from "~/components/atoms/SharkyImage";
-import { ProfilingWizard } from "~/pages/profiling/profiling";
+import { ProfilingWizard } from "~/components/organisms/profiling/profiling";
 
 interface ProfilingModalProps {
   isOpen: boolean;

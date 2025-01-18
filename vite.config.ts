@@ -14,11 +14,11 @@ export default defineConfig({
       },
       routes(defineRoutes) {
         return defineRoutes((route) => {
-          route("/", "pages/_index.tsx", { index: true });
-          route("login", "pages/login/layout.tsx", () => {
+          route("/", "pages/index.tsx", { index: true });
+          route("login", "templates/LoginLayout.tsx", () => {
             route("", "pages/login/login.tsx", { index: true });
           });
-          route("dashboard", "pages/dashboard/layout.tsx", () => {
+          route("dashboard", "templates/DashboardLayout.tsx", () => {
             route("", "pages/dashboard/home.tsx", { index: true });
           });
         });

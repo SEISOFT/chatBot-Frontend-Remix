@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { ProfilingSection } from "./profilingSection";
 import { questionsConfig } from "./questionsConfig";
-import { stepsConfig } from "./stepsConfig";
+import { stepsConfig } from "./ProfilingStepsConfig";
 import { useProfiling } from "~/hooks/profiling/useProfiling";
 import { colors } from "~/styles/colors";
 import { Ico } from "~/assets/icons";

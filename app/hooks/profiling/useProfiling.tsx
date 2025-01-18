@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProfilingResult } from "~/pages/profiling/types";
+import { ProfilingResult } from "~/components/organisms/profiling/types";
 
 const INITIAL_PROFILING_STATE: ProfilingResult = {
   business: {

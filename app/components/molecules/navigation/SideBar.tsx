@@ -31,7 +31,12 @@ export const Sidebar: React.FC = () => {
   const location = useLocation();
   const { isSidebarCollapsed, toggleSidebar } = useNavigation();
   const isMobile = useBreakpointValue({ base: true, lg: false });
-
+  const getSidebarWidth = (): string => {
+    if (isSidebarCollapsed) return "70px";
+    if (isMobile) return "314px";
+    return "248px";
+  };
+  const sidebarWidth = getSidebarWidth();
   return (
     <Flex
       flexDir={"column"}
@@ -39,10 +44,11 @@ export const Sidebar: React.FC = () => {
       px={4}
       py={2}
       mt={isMobile ? "0" : "-60px"}
-      w={isSidebarCollapsed ? "70px" : isMobile ? "314px" : "248px"}
-      maxW={"248px"}
+      w={sidebarWidth}
+      maxW={"314px"}
       transition="width 0.4s"
       bg="white"
+      display={isMobile && isSidebarCollapsed ? "none" : "block"}
       position={isMobile ? "fixed" : "sticky"}
       top={isMobile ? "60px" : 0}
       zIndex={1000}
@@ -64,9 +70,9 @@ export const Sidebar: React.FC = () => {
           flexDir={"column"}
           width={isSidebarCollapsed ? "36px" : "auto"}
         >
-          {sidebarItems.map((item, index) => (
+          {sidebarItems.map((item) => (
             <SidebarItem
-              key={index}
+              key={item.label}
               label={item.label}
               icon={item.icon}
               subItems={item.subItems}

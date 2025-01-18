@@ -116,7 +116,7 @@ export const Dashboard = () => {
               style={{
                 textAlign: "center",
                 textTransform: "uppercase",
-                textShadow: "0 0 5px rgba(0, 0, 0, 0.8)",
+                textShadow: "0px 0px 10px rgba(37, 99, 235, 0.8)",
                 fontFamily: "Retroguard",
                 lineHeight: 1.2,
               }}
