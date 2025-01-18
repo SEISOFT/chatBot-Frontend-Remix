@@ -2,15 +2,42 @@ import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
 import { colors } from "../colors";
 
 const primary = defineStyle({
-  bgColor: colors.Blue[800],
+  bgColor: colors.Blue[600],
   borderColor: "transparent",
   color: "white",
   rounded: "6px",
   _hover: {
-    bgColor: colors.Blue[600],
+    bgColor: colors.Blue[500],
   },
   _active: {
     bgColor: colors.Blue[900],
+  },
+  _pressed: {
+    bgColor: colors.Blue[900],
+  },
+  _focus: {
+    outline: "none",
+  },
+  _disabled: {
+    bgColor: colors.Gray[200],
+    color: colors.Gray[400],
+  },
+});
+const pill = defineStyle({
+  bgColor: colors.Slate[100],
+  borderColor: "transparent",
+  color: colors.Slate[600],
+  rounded: "50px",
+  paddingY:"8px",
+  paddingX:"16px !important",
+  lineHeight: "10px",
+  _hover: {
+    bgColor: colors.Blue[500],
+    color: colors.Slate[50],
+  },
+  _active: {
+    bgColor: colors.Blue[500],
+    color: colors.Slate[50],
   },
   _pressed: {
     bgColor: colors.Blue[900],
@@ -55,6 +82,9 @@ const ghost = defineStyle({
   },
   _focus: {
     outline: "none",
+  },
+  _pressed: {
+    bgColor: colors.Blue[500],
   },
   _active: {
     color: colors.Blue[900],
@@ -115,6 +145,7 @@ const buttonTheme = defineStyleConfig({
     link,
     primary,
     secondary,
+    pill
   },
 });
 

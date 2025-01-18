@@ -5,6 +5,7 @@ import { buttonTheme } from "./button/theme";
 import { inputTheme } from "./input/theme";
 import { linkTheme } from "./link/theme";
 import { menuTheme } from './menu/theme';
+import { stepperTheme } from './stepper/theme';
 
 const theme = extendTheme({
   styles: {
@@ -25,7 +26,8 @@ const theme = extendTheme({
     Button: buttonTheme,
     Input: inputTheme,
     Link: linkTheme,
-    Menu: menuTheme
+    Menu: menuTheme,
+    Stepper: stepperTheme,
   }
 });
 

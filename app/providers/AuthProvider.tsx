@@ -1,22 +1,23 @@
 import { config } from "config";
-import { ReactNode, useEffect, useMemo, useCallback } from "react";
+import { ReactNode, useMemo, useCallback, useState, useEffect } from "react";
 import { AuthContext } from "~/contexts/AuthContext";
 
 interface AuthProviderProps {
   children: ReactNode;
-  onAuthSuccess: (token: string) => void; // Notificar al UserProvider
 }
 
-export const AuthProvider = ({ children, onAuthSuccess }: AuthProviderProps) => {
-  // Validar el token JWT almacenado
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+
+  // Verifica si hay un token en localStorage cuando se monta el provider
   useEffect(() => {
     const token = localStorage.getItem(config.JWT_SECRET);
     if (token) {
-      onAuthSuccess(token); // Notificar al UserProvider que el usuario está autenticado
+      setIsAuth(true);
+      console.log("Token encontrado, usuario autenticado.");
     }
-  }, [onAuthSuccess]);
+  }, []);
 
-  // Función de inicio de sesión
   const login = useCallback(async (email: string, password: string) => {
     try {
       const response = await fetch(`${config.API_URL}/auth/login`, {
@@ -31,25 +32,24 @@ export const AuthProvider = ({ children, onAuthSuccess }: AuthProviderProps) => 
 
       const { token } = await response.json();
       localStorage.setItem(config.JWT_SECRET, token);
-
-      onAuthSuccess(token); // Notificar al UserProvider
+      setIsAuth(true);
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
       throw error;
     }
-  }, [onAuthSuccess]);
-
-  // Función de cierre de sesión
-  const logout = useCallback(() => {
-    localStorage.removeItem(config.JWT_SECRET);
-    localStorage.removeItem("email");
   }, []);
 
-  // Memoizar el valor del contexto
+  const logout = useCallback(() => {
+    localStorage.removeItem(config.JWT_SECRET);
+    setIsAuth(false);
+  }, []);
+
   const contextValue = useMemo(
-    () => ({ login, logout }),
-    [login, logout]
+    () => ({ isAuth, login, logout }),
+    [isAuth, login, logout]
   );
 
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 };

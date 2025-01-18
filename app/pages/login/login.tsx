@@ -1,18 +1,19 @@
 import { useNavigate } from "@remix-run/react";
+import { useAuth } from "~/hooks/useAuth";
 import { Login } from "../../components/organisms/Login";
 import { useEffect } from "react";
-import { useUser } from "~/hooks/useUser";
 
 export default function LoginPage() {
-  const { user } = useUser();
+  const { isAuth } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
+    console.log("isAuth", isAuth)
+    if (isAuth) {
       console.log("Usuario logueado, redirigiendo a dashboard...");
       navigate("/dashboard", { replace: true });
     }
-  }, [user, navigate]);
+  }, [isAuth, navigate]);
 
   return <Login />;
 }
