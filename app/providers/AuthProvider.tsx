@@ -1,4 +1,5 @@
-import { config } from "config";
+import { api } from "config/api";
+import { constants } from "config/constants";
 import { ReactNode, useMemo, useCallback, useState, useEffect } from "react";
 import { AuthContext } from "~/contexts/AuthContext";
 
@@ -11,7 +12,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // Verifica si hay un token en localStorage cuando se monta el provider
   useEffect(() => {
-    const token = localStorage.getItem(config.JWT_SECRET);
+    const token = localStorage.getItem(constants.JWT_SECRET);
     if (token) {
       setIsAuth(true);
       console.log("Token encontrado, usuario autenticado.");
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const login = useCallback(async (email: string, password: string) => {
     try {
-      const response = await fetch(`${config.API_URL}/auth/login`, {
+      const response = await fetch(`${api.API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -31,7 +32,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       }
 
       const { token } = await response.json();
-      localStorage.setItem(config.JWT_SECRET, token);
+      localStorage.setItem(constants.JWT_SECRET, token);
       setIsAuth(true);
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
@@ -40,7 +41,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem(config.JWT_SECRET);
+    localStorage.removeItem(constants.JWT_SECRET);
     setIsAuth(false);
   }, []);
 

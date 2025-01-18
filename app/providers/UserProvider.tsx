@@ -1,6 +1,7 @@
+import { api } from "config/api";
+import { constants } from "config/constants";
 import { useState, ReactNode, useMemo, useEffect, useCallback } from "react";
 import { UserContext, User } from "~/contexts/UserContext";
-import { config } from "config";
 
 interface UserProviderProps {
   children: ReactNode;
@@ -13,7 +14,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const getUser = useCallback(async (token: string) => {
     try {
       console.log("Token encontrado:", token);
-      const response = await fetch(`${config.CORE_URL}/user/get-user`, {
+      const response = await fetch(`${api.CORE_URL}/user/get-user`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -30,16 +31,15 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       console.log("Usuario obtenido:", user);
     } catch (error) {
       console.error("Error al obtener usuario:", error);
-      localStorage.removeItem(config.JWT_SECRET);
+      localStorage.removeItem(constants.JWT_SECRET);
       setUser(null);
     } finally {
       setIsLoading(false);
     }
   }, []);
 
-
   useEffect(() => {
-    const token = localStorage.getItem(config.JWT_SECRET);
+    const token = localStorage.getItem(constants.JWT_SECRET);
     if (token) {
       getUser(token);
     } else {

@@ -1,5 +1,5 @@
 import { defineStyleConfig } from "@chakra-ui/react";
-import { colors } from "../colors";
+import { colors } from "~/styles/colors";
 const linkTheme = defineStyleConfig({
   baseStyle: {
     color: colors.Blue[800],
@@ -15,8 +15,8 @@ const linkTheme = defineStyleConfig({
     },
     _disabled: {
       color: colors.Gray[400],
-      cursor: "not-allowed", 
-      textDecoration: "none", 
+      cursor: "not-allowed",
+      textDecoration: "none",
     },
   },
   sizes: {

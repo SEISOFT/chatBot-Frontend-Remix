@@ -1,4 +1,4 @@
-import { colors } from './../colors';
+import { colors } from "~/styles/colors";
 import { menuAnatomy } from '@chakra-ui/anatomy'
 import { createMultiStyleConfigHelpers } from '@chakra-ui/react'
 

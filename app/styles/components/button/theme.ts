@@ -1,5 +1,5 @@
 import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
-import { colors } from "../colors";
+import { colors } from "~/styles/colors";
 
 const primary = defineStyle({
   bgColor: colors.Blue[600],
@@ -28,8 +28,8 @@ const pill = defineStyle({
   borderColor: "transparent",
   color: colors.Slate[600],
   rounded: "50px",
-  paddingY:"8px",
-  paddingX:"16px !important",
+  paddingY: "8px",
+  paddingX: "16px !important",
   lineHeight: "10px",
   _hover: {
     bgColor: colors.Blue[500],

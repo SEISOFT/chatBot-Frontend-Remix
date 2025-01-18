@@ -1,28 +1,23 @@
+// app/components/organisms/Dashboard.tsx
 import { Box, Heading, Spinner, Button, Text, Flex } from "@chakra-ui/react";
 import { useQRCode } from "~/hooks/useQRCode";
 import { QRCodeCanvas } from "qrcode.react";
 import { useUser } from "~/hooks/useUser";
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ProfilingModal } from "~/pages/profiling/ProfilingModal";
-import { colors } from "~/styles/colors";
+import { ProfilingModal } from "~/components/molecules/profiling/ProfilingModal";
 import { SharkyProfile } from "../atoms/SharkyProfile";
+import { useModalControl } from "~/hooks/useModalControl";
+import { useWelcomeAnimation } from "~/hooks/profiling/useWelcomeAnimation";
 
 export const Dashboard = () => {
   const { user } = useUser();
   const { qrCode, error, isLoading, refetch } = useQRCode();
-
-  // Controlar el modal y el mensaje de bienvenida
-  const [isProfilingModalOpen, setIsProfilingModalOpen] = useState(true);
-  const [showWelcomeAnimation, setShowWelcomeAnimation] = useState(false);
+  const { isModalOpen, closeModal } = useModalControl();
+  const { showWelcomeAnimation, triggerAnimation } = useWelcomeAnimation();
 
   const handleCompleteProfiling = () => {
-    setIsProfilingModalOpen(false); // Ocultar el modal
-    setShowWelcomeAnimation(true); // Mostrar la animación del mensaje de bienvenida
-
-    setTimeout(() => {
-      setShowWelcomeAnimation(false); // Ocultar la animación después de 4 segundos
-    }, 4000);
+    closeModal();
+    triggerAnimation();
   };
 
   return (
@@ -64,10 +59,9 @@ export const Dashboard = () => {
           </Box>
         )}
       </Box>
-
       {/* Fondo desenfocado siempre activo */}
       <AnimatePresence>
-        {(isProfilingModalOpen || showWelcomeAnimation) && (
+        {(isModalOpen || showWelcomeAnimation) && (
           <motion.div
             initial={{ backdropFilter: "blur(10px)", opacity: 1 }}
             animate={{ backdropFilter: "blur(10px)", opacity: 1 }}
@@ -85,10 +79,12 @@ export const Dashboard = () => {
           />
         )}
       </AnimatePresence>
-
       {/* Modal de Perfilamiento */}
-      {isProfilingModalOpen && (
-        <ProfilingModal isOpen={true} onClose={handleCompleteProfiling} />
+      {isModalOpen && (
+        <ProfilingModal
+          isOpen={isModalOpen}
+          onClose={handleCompleteProfiling}
+        />
       )}
 
       {/* Animación del Mensaje de Bienvenida */}
@@ -107,62 +103,49 @@ export const Dashboard = () => {
             height="100%"
             justifyContent="center"
             alignItems="center"
-            zIndex={1100} // Colocar sobre el fondo constante
+            zIndex={1100}
           >
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -50 }}
               transition={{
-                duration: 1.5, // Ajuste de duración para mayor fluidez
-                ease: "easeInOut", // Curva de animación más suave
+                duration: 1.5,
+                ease: "easeInOut",
               }}
               style={{
                 textAlign: "center",
                 textTransform: "uppercase",
                 textShadow: "0 0 5px rgba(0, 0, 0, 0.8)",
                 fontFamily: "Retroguard",
-                lineHeight: 1.2, // Ajuste del espacio entre líneas
+                lineHeight: 1.2,
               }}
             >
-              <SharkyProfile
-                w="clamp(80px, 10vw, 120px)" // Tamaño responsivo de la imagen
-                mx="auto" // Centrar la imagen
-                mb={4} // Espaciado inferior entre la imagen y el texto
-              />
-
+              <SharkyProfile w="clamp(80px, 10vw, 120px)" mx="auto" mb={4} />
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{
-                  duration: 1.5,
-                  ease: "easeInOut",
-                }}
+                transition={{ duration: 1.5 }}
                 style={{
-                  display: "block", // Cada línea en su propio bloque
-                  fontSize: "clamp(32px, 6vw, 64px)", // Tamaño responsivo más grande
+                  display: "block",
+                  fontSize: "clamp(32px, 6vw, 64px)",
                   fontWeight: "bold",
                   color: "white",
                 }}
               >
                 Bienvenido a
               </motion.span>
-
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{
-                  duration: 1.5,
-                  ease: "easeInOut",
-                  delay: 0.5, // Retraso para "Sharky"
-                }}
+                transition={{ duration: 1.5, delay: 0.5 }}
                 style={{
                   display: "block",
-                  fontSize: "clamp(48px, 10vw, 96px)", // Tamaño responsivo mayor
+                  fontSize: "clamp(48px, 10vw, 96px)",
                   fontWeight: "bold",
-                  color: colors.Blue[500],
+                  color: "#2563EB",
                 }}
               >
                 Sharky

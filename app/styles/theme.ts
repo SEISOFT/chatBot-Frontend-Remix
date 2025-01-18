@@ -1,11 +1,11 @@
 import { extendTheme } from '@chakra-ui/react';
-import { headingTheme } from "./heading/theme";
+import { headingTheme } from "./components/heading/theme";
 import { colors } from "./colors";
-import { buttonTheme } from "./button/theme";
-import { inputTheme } from "./input/theme";
-import { linkTheme } from "./link/theme";
-import { menuTheme } from './menu/theme';
-import { stepperTheme } from './stepper/theme';
+import { buttonTheme } from "./components/button/theme";
+import { inputTheme } from "./components/input/theme";
+import { linkTheme } from "./components/link/theme";
+import { menuTheme } from './components/menu/theme';
+import { stepperTheme } from './components/stepper/theme';
 
 const theme = extendTheme({
   styles: {

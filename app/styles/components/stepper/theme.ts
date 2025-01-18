@@ -1,5 +1,5 @@
 import { defineStyleConfig } from "@chakra-ui/react";
-import { colors } from "../colors";
+import { colors } from "~/styles/colors";
 
 const stepperTheme = defineStyleConfig({
     baseStyle: {
