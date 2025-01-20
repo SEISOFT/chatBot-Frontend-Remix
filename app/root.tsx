@@ -13,8 +13,7 @@ export const links: LinksFunction = () => [
   {
     rel: "stylesheet",
     href: "/app/styles/global.css",
-    media: "print", // Diferir hasta que sea necesario
-    onload: "this.media='all'",
+    media: "print",
   },
 ];
 

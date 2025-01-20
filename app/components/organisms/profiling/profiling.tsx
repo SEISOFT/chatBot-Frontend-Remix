@@ -9,6 +9,7 @@ import {
   Button,
   useSteps,
   useToast,
+  Text,
 } from "@chakra-ui/react";
 import { ProfilingSection } from "./profilingSection";
 import { questionsConfig } from "./questionsConfig";
@@ -84,22 +85,33 @@ export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
       />
 
       {/* Botones de navegación */}
-      <Stack direction="row" spacing={4} justifyContent="center">
-        {activeStep > 0 && (
-          <Button lineHeight={"normal"} variant="ghost" fontSize="sm" onClick={handlePrev}>
-            Atrás
+      <Flex flexDir={"column"} gap={4}>
+        <Stack direction="row" spacing={4} justifyContent="center">
+          {activeStep > 0 && (
+            <Button
+              lineHeight={"normal"}
+              variant="ghost"
+              fontSize="sm"
+              onClick={handlePrev}
+            >
+              Atrás
+            </Button>
+          )}
+          <Button
+            variant="primary"
+            rounded="full"
+            fontSize="sm"
+            lineHeight={"normal"}
+            onClick={handleNext}
+          >
+            {activeStep === stepsConfig.length - 1 ? "Finalizar" : "Siguiente"}
           </Button>
-        )}
-        <Button
-          variant="primary"
-          rounded="full"
-          fontSize="sm"
-          lineHeight={"normal"}
-          onClick={handleNext}
-        >
-          {activeStep === stepsConfig.length - 1 ? "Finalizar" : "Siguiente"}
-        </Button>
-      </Stack>
+        </Stack>
+        <Text fontSize={"xs"} color={colors.Slate[400]}>
+          Los datos recopilados se utilizarán únicamente con fines estadísticos
+          y en pro de mejorar tu experiencia.
+        </Text>
+      </Flex>
     </Flex>
   );
 };
