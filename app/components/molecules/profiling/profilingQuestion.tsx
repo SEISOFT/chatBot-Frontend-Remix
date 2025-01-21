@@ -22,7 +22,7 @@ const isOptionSelected = <T extends string | number>(
   return selected === option;
 };
 
-export const Question = <T extends string | number>({
+export const ProfilingQuestion = <T extends string | number>({
   title,
   options,
   selected,

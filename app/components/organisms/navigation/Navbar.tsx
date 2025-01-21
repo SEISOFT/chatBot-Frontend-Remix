@@ -11,14 +11,14 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "@remix-run/react";
 import { TbLogout, TbUser, TbCreditCard, TbMenu2 } from "react-icons/tb";
-import { AvatarBanner } from "../../atoms/AvatarBanner";
-import { AvatarCircle } from "../../atoms/AvatarCircle";
+import { AvatarBanner } from "~/components/molecules/AvatarBanner";
+import { AvatarCircle } from "~/components/atoms/AvatarCircle";
 import { colors } from "~/styles/colors";
-import { SharkyBanner } from "../../atoms/SharkyBanner";
 import { useAuth } from "~/hooks/useAuth";
 import { useNavigation } from "~/hooks/useNavigation";
+import { SharkyBanner } from "~/components/molecules/SharkyBanner";
 
-export const Navbar: React.FC = () => {
+export const Navbar = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const { toggleSidebar } = useNavigation();
@@ -62,7 +62,7 @@ export const Navbar: React.FC = () => {
           aria-label="Toggle Sidebar"
           fontSize={"24px"}
           icon={<TbMenu2 />}
-          onClick={toggleSidebar} // Llama a toggleSidebar del contexto
+          onClick={toggleSidebar}
         />
         {isMobile && <SharkyBanner isCollapsed={false} />}
       </Flex>

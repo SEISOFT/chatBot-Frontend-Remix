@@ -12,8 +12,8 @@ import {
   PopoverTrigger,
   Text,
 } from "@chakra-ui/react";
-import { SubItemList } from "./SubItemList";
 import { colors } from "~/styles/colors";
+import { SubItemList } from "../../molecules/navigation/SubItemList";
 
 interface SidebarItemProps {
   label: string;

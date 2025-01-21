@@ -1,4 +1,3 @@
-// app/components/organisms/Dashboard.tsx
 import { Box, Heading, Spinner, Button, Text, Flex } from "@chakra-ui/react";
 import { useQRCode } from "~/hooks/useQRCode";
 import { QRCodeCanvas } from "qrcode.react";

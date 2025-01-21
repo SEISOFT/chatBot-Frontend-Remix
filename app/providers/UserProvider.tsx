@@ -13,7 +13,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   const getUser = useCallback(async (token: string) => {
     try {
-      console.log("Token encontrado:", token);
       const response = await fetch(`${api.CORE_URL}/user/get-user`, {
         method: "GET",
         headers: {
@@ -43,7 +42,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     if (token) {
       getUser(token);
     } else {
-      console.log("No hay un token autenticado");
       setIsLoading(false);
     }
   }, [getUser]);

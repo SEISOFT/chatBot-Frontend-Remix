@@ -14,22 +14,20 @@ import { TbEyeClosed, TbEye } from "react-icons/tb";
 import { useAuth } from "~/hooks/useAuth";
 
 interface LoginFormProps {
-  onSuccess: () => void; // callback para manejar redirección o lógica en el componente Login
+  onSuccess: () => void;
 }
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isVisible, setIsVisible] = useState(false); // Para manejar visibilidad de la contraseña
-  const [isLoading, setIsLoading] = useState(false); // Para manejar el estado de carga
-  // Toggle visibility function using useCallback to prevent unnecessary re-creations
+  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const toggleVisibility = useCallback(() => setIsVisible((prev) => !prev), []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-
     try {
       await login(email, password);
       onSuccess();

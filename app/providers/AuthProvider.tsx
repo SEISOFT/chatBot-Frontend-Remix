@@ -10,12 +10,10 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
-  // Verifica si hay un token en localStorage cuando se monta el provider
   useEffect(() => {
     const token = localStorage.getItem(constants.JWT_SECRET);
     if (token) {
       setIsAuth(true);
-      console.log("Token encontrado, usuario autenticado.");
     }
   }, []);
 

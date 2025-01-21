@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Accordion,
   calc,
@@ -6,7 +5,6 @@ import {
   IconButton,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { SidebarItem } from "../../atoms/SidebarItem";
 import {
   TbChevronLeft,
   TbChevronRight,
@@ -14,8 +12,9 @@ import {
   TbUsersGroup,
 } from "react-icons/tb";
 import { useLocation } from "@remix-run/react";
-import { SharkyBanner } from "../../atoms/SharkyBanner";
+import { SharkyBanner } from "~/components/molecules/SharkyBanner";
 import { useNavigation } from "~/hooks/useNavigation";
+import { SidebarItem } from "~/components/molecules/navigation/SidebarItem";
 
 const sidebarItems = [
   { label: "Inicio", icon: <TbHome2 />, path: "/dashboard" },
@@ -27,7 +26,7 @@ const sidebarItems = [
   },
 ];
 
-export const Sidebar: React.FC = () => {
+export const Sidebar = () => {
   const location = useLocation();
   const { isSidebarCollapsed, toggleSidebar } = useNavigation();
   const isMobile = useBreakpointValue({ base: true, lg: false });
@@ -77,7 +76,7 @@ export const Sidebar: React.FC = () => {
               icon={item.icon}
               subItems={item.subItems}
               isCollapsed={isSidebarCollapsed}
-              isActive={location.pathname === item.path} // Comparar la ruta actual con el path
+              isActive={location.pathname === item.path}
             />
           ))}
         </Accordion>
@@ -87,7 +86,7 @@ export const Sidebar: React.FC = () => {
       {!isMobile && (
         <IconButton
           aria-label="Toggle Sidebar"
-          onClick={toggleSidebar} // Usar toggleSidebar del contexto
+          onClick={toggleSidebar}
           bg={"#fff"}
           borderRadius={"50%"}
           position={"absolute"}

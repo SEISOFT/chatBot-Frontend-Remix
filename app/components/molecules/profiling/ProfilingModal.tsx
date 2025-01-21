@@ -53,7 +53,7 @@ export const ProfilingModal = ({ isOpen, onClose }: ProfilingModalProps) => {
           </Flex>
           <ProfilingWizard
             onComplete={() => {
-              onClose(); // Cierra el modal al completar el wizard
+              onClose();
             }}
           />
         </ModalBody>

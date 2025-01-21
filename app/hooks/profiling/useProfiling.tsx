@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ProfilingResult } from "~/components/organisms/profiling/types";
+import { Profiling } from "~/components/organisms/profiling/types";
 
-const INITIAL_PROFILING_STATE: ProfilingResult = {
+const INITIAL_PROFILING_STATE: Profiling = {
   business: {
     sector: "Comercio",
     yearsOperating: "Menos de 1 año",
@@ -28,13 +28,13 @@ const INITIAL_PROFILING_STATE: ProfilingResult = {
 };
 
 export const useProfiling = () => {
-  const [profilingData, setProfilingData] = useState<ProfilingResult>(
+  const [profilingData, setProfilingData] = useState<Profiling>(
     INITIAL_PROFILING_STATE
   );
 
-  const updateSection = <K extends keyof ProfilingResult>(
+  const updateSection = <K extends keyof Profiling>(
     key: K,
-    data: ProfilingResult[K]
+    data: Profiling[K]
   ) => {
     setProfilingData((prev) => ({ ...prev, [key]: data }));
   };

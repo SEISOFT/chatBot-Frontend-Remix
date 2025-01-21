@@ -1,10 +1,10 @@
 import { Flex, Avatar, AvatarBadge, Image, Text } from "@chakra-ui/react";
 import { colors } from "~/styles/colors";
 import premium from "../../assets/images/premium.png";
-import { useAuth } from "~/hooks/useAuth";
+import { useUser } from "~/hooks/useUser";
 
-export const AvatarBanner: React.FC = () => {
-  const { user } = useAuth();
+export const AvatarBanner = () => {
+  const { user } = useUser();
   return (
     <Flex gap={4} alignItems={"center"}>
       <Avatar

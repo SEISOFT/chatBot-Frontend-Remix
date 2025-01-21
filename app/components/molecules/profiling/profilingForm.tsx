@@ -1,6 +1,6 @@
 import { Flex, Heading, Textarea } from "@chakra-ui/react";
-import { Question } from "~/components/molecules/profiling/ProfilingQuestion";
-import { QuestionsConfig } from "./types";
+import { ProfilingQuestion } from "~/components/molecules/profiling/ProfilingQuestion";
+import { QuestionsConfig } from "../../organisms/profiling/types";
 
 interface ProfilingSectionProps<T> {
   data: T; // Datos actuales de la sección
@@ -8,7 +8,7 @@ interface ProfilingSectionProps<T> {
   questions: QuestionsConfig[keyof QuestionsConfig]; // Preguntas específicas por sección
 }
 
-export const ProfilingSection = <T extends Record<string, unknown>>({
+export const ProfilingForm = <T extends Record<string, unknown>>({
   data,
   onUpdate,
   questions,
@@ -47,7 +47,7 @@ export const ProfilingSection = <T extends Record<string, unknown>>({
         // Preguntas con opciones
         if (question.options) {
           return (
-            <Question
+            <ProfilingQuestion
               key={String(question.key)}
               title={question.title}
               options={question.options}
@@ -72,8 +72,6 @@ export const ProfilingSection = <T extends Record<string, unknown>>({
             </Flex>
           );
         }
-
-        // En caso de que no se cumpla ninguna condición
         return null;
       })}
     </Flex>

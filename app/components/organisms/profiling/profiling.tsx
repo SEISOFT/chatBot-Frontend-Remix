@@ -11,19 +11,18 @@ import {
   useToast,
   Text,
 } from "@chakra-ui/react";
-import { ProfilingSection } from "./profilingSection";
-import { questionsConfig } from "./questionsConfig";
-import { stepsConfig } from "./ProfilingStepsConfig";
+import { ProfilingForm } from "~/components/molecules/profiling/profilingForm";
+import { questionsConfig } from "../../../utils/profiling/questionsConfig";
+import { stepsConfig } from "../../../utils/profiling/ProfilingStepsConfig";
 import { useProfiling } from "~/hooks/profiling/useProfiling";
 import { colors } from "~/styles/colors";
 import { Ico } from "~/assets/icons";
 
 export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
-  const { profilingData, updateSection } = useProfiling(); // Estado y actualizador de datos
-  const { activeStep, setActiveStep } = useSteps({ index: 0 }); // Manejo del paso activo
-  const toast = useToast(); // Notificaciones
+  const { profilingData, updateSection } = useProfiling();
+  const { activeStep, setActiveStep } = useSteps({ index: 0 });
+  const toast = useToast();
 
-  // Avanzar al siguiente paso o finalizar el proceso
   const handleNext = () => {
     if (activeStep === stepsConfig.length - 1) {
       toast({
@@ -40,22 +39,19 @@ export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
     }
   };
 
-  // Retroceder al paso anterior
   const handlePrev = () => {
     if (activeStep > 0) {
       setActiveStep(activeStep - 1);
     }
   };
 
-  // Paso actual y sus datos
-  const currentStep = stepsConfig[activeStep];
+  const currentStep = stepsConfig[activeStep]; // Paso actual y sus datos
   const stepKey = currentStep.key; // Clave de la sección actual
   const stepData = profilingData[stepKey]; // Datos de la sección actual
   const questions = questionsConfig[stepKey]; // Preguntas de la sección actual
 
   return (
     <Flex flexDir="column" gap={8}>
-      {/* Stepper Visual */}
       <Stepper index={activeStep} px={6}>
         {stepsConfig.map((step) => (
           <Step key={step.key}>
@@ -77,14 +73,12 @@ export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
         ))}
       </Stepper>
 
-      {/* Sección de preguntas del paso actual */}
-      <ProfilingSection
+      <ProfilingForm
         data={stepData}
         onUpdate={(updatedData) => updateSection(stepKey, updatedData)}
         questions={questions}
       />
 
-      {/* Botones de navegación */}
       <Flex flexDir={"column"} gap={4}>
         <Stack direction="row" spacing={4} justifyContent="center">
           {activeStep > 0 && (

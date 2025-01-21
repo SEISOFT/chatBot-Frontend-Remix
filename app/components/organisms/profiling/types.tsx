@@ -78,38 +78,39 @@ export type PotencialMercadoQuestion =
   | Question<DigitalSalesPercentage>;
 
 export type OpenQuestion = Question<string>;
+
 // Interfaz que define la configuración completa
 export interface QuestionsConfig {
-  business: BusinessQuestion[]; // Preguntas de la sección "business"
-  salesTeam: SalesTeamQuestion[]; // Preguntas de "salesTeam"
-  digitalMarketing: DigitalMarketingQuestion[]; // Preguntas de "digitalMarketing"
-  potencialMercado: PotencialMercadoQuestion[]; // Preguntas de "potencialMercado"
-  openQuestion: OpenQuestion[]; // Preguntas abiertas
+  business: BusinessQuestion[];
+  salesTeam: SalesTeamQuestion[];
+  digitalMarketing: DigitalMarketingQuestion[];
+  potencialMercado: PotencialMercadoQuestion[];
+  openQuestion: OpenQuestion[];
 }
 
 // 📌 Objeto resultante del formulario
-export interface ProfilingResult {
+export interface Profiling {
   business: {
-    sector: BusinessSector; // "Comercio" | "Servicios" | "Manufactura" | "Otro"
-    yearsOperating: BusinessYears; // "Menos de 1 año" | "1-3 años" | "Más de 3 años"
-    marketReach: MarketReach; // "Local" | "Nacional" | "Internacional"
+    sector: BusinessSector;
+    yearsOperating: BusinessYears;
+    marketReach: MarketReach;
   };
   salesTeam: {
-    teamSize: SalesTeamSize; // "1-5" | "6-10" | "Más de 10"
-    usesTechTools: TechToolsUsage; // "Sí" | "No"
-    dailyMessages: DailyMessages; // "Menos de 10" | "10-50" | ...
+    teamSize: SalesTeamSize;
+    usesTechTools: TechToolsUsage;
+    dailyMessages: DailyMessages;
   };
   digitalMarketing: {
-    team: MarketingTeam; // "Sí, especializado" | "Sí, pero no especializado" | "No"
-    digitalTools: DigitalTool[]; // ["Redes sociales", "Email marketing", ...]
-    socialMediaPresence: SocialMediaPresence; // "Muy activa" | "Moderada" | "Inactiva"
+    team: MarketingTeam;
+    digitalTools: DigitalTool[];
+    socialMediaPresence: SocialMediaPresence;
   };
   potencialMercado: {
-    monthlySales: MonthlySales; // "Menos de $1M" | "$1M-$10M" | ...
-    averageTicket: AverageTicket; // "Menos de $100 mil" | "$100 mil-$500 mil" | ...
-    digitalSalesPercentage: DigitalSalesPercentage; // "Ninguno" | "Menos del 25%" | ...
+    monthlySales: MonthlySales;
+    averageTicket: AverageTicket;
+    digitalSalesPercentage: DigitalSalesPercentage;
   };
   openQuestion: {
-    mainChallenge: OpenQuestionResponse; // string
+    mainChallenge: OpenQuestionResponse;
   };
 }

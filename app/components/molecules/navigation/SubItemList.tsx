@@ -1,6 +1,5 @@
-import React from "react";
 import { Flex } from "@chakra-ui/react";
-import { SubItem } from "./SubItem";
+import { SubItem } from "~/components/atoms/navigation/SubItem";
 
 interface SubItemListProps {
   subItems: string[];
@@ -8,11 +7,11 @@ interface SubItemListProps {
   onSubItemClick?: (subItem: string) => void;
 }
 
-export const SubItemList: React.FC<SubItemListProps> = ({
+export const SubItemList = ({
   subItems,
   isCollapsed,
   onSubItemClick,
-}) => {
+}: SubItemListProps) => {
   return (
     <Flex flexDir="column">
       {subItems.map((subItem) => (

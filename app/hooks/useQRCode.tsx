@@ -7,7 +7,7 @@ export const useQRCode = () => {
 
   const fetchQRCode = async () => {
     setIsLoading(true);
-    setError(null); // Limpiar errores previos
+    setError(null);
     try {
       const response = await fetch("https://chatbot-backend-1-nuoq.onrender.com/api-whatsapp/qr");
       if (!response.ok) {
@@ -25,7 +25,7 @@ export const useQRCode = () => {
   };
 
   useEffect(() => {
-    fetchQRCode(); // Obtener el QR al montar el componente
+    fetchQRCode();
   }, []);
 
   return { qrCode, error, isLoading, refetch: fetchQRCode };

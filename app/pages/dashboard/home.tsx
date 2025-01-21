@@ -1,4 +1,4 @@
-import { ProtectedRoute } from "~/components/atoms/ProtectedRoute";
+import { ProtectedRoute } from "~/guards/ProtectedRoute";
 import { Dashboard } from "~/components/organisms/Dashboard";
 
 export default function DashboardPage() {

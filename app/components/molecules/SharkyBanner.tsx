@@ -1,13 +1,12 @@
-import React from "react";
 import { Flex, Heading } from "@chakra-ui/react";
 import { colors } from "~/styles/colors";
-import { SharkyProfile } from "./SharkyProfile";
+import { SharkyProfile } from "../atoms/SharkyProfile";
 
 interface SharkyBannerProps {
   isCollapsed: boolean;
 }
 
-export const SharkyBanner: React.FC<SharkyBannerProps> = ({ isCollapsed }) => {
+export const SharkyBanner = ({ isCollapsed }: SharkyBannerProps) => {
   return (
     <Flex alignItems="center" justifyContent="start" gap={4} minH={"42px"}>
       <SharkyProfile w={10} minW={10} />

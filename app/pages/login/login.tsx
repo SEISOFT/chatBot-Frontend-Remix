@@ -8,9 +8,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("isAuth", isAuth)
     if (isAuth) {
-      console.log("Usuario logueado, redirigiendo a dashboard...");
       navigate("/dashboard", { replace: true });
     }
   }, [isAuth, navigate]);

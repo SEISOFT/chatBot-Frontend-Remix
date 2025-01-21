@@ -1,4 +1,4 @@
-import { QuestionsConfig } from "./types";
+import { QuestionsConfig } from "../../components/organisms/profiling/types";
 
 export const questionsConfig: QuestionsConfig = {
     business: [

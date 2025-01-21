@@ -15,7 +15,6 @@ export const Login = () => {
   const showSharkyImage = useBreakpointValue({ base: false, lg: true });
 
   const handleLoginSuccess = () => {
-    console.log("logueo exitoso");
     navigate("/dashboard");
   };
 
