@@ -2,6 +2,7 @@ import { api } from "config/api";
 import { constants } from "config/constants";
 import { useState } from "react";
 import { Profiling } from "~/components/organisms/profiling/types";
+import { useError } from "../useError";
 
 const INITIAL_PROFILING_STATE: Profiling = {
   business: {
@@ -30,6 +31,7 @@ const INITIAL_PROFILING_STATE: Profiling = {
 };
 
 export const useProfiling = () => {
+  const { reportError } = useError();
   const [profilingData, setProfilingData] = useState<Profiling>(
     INITIAL_PROFILING_STATE
   );
@@ -44,7 +46,6 @@ export const useProfiling = () => {
 
   const submitProfiling = async () => {
     try {
-      console.log("entra");
       setIsSubmitting(true);
       const response = await fetch(`${api.CORE_URL}/user/update-user`, {
         method: "PUT",
@@ -57,10 +58,13 @@ export const useProfiling = () => {
       if (!response.ok) {
         throw new Error("JWT inválido");
       }
-      console.log("Datos de perfilamiento enviados con éxito");
     } catch (error) {
-      console.error("Error al iniciar sesión:", error);
-      throw error;
+      reportError({
+        component: "useProfiling.tsx Ln.63",
+        title: "Error al iniciar sesión",
+        message: `${error}`,
+        showInProd: true,
+      });
     } finally {
       setIsSubmitting(false);
     }

@@ -8,6 +8,7 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./styles/theme";
+import { ErrorProvider } from "./providers/ErrorProvider";
 
 export const links: LinksFunction = () => [
   {
@@ -38,7 +39,9 @@ export function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
 export default function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Outlet />
+      <ErrorProvider>
+        <Outlet />
+      </ErrorProvider>
     </ChakraProvider>
   );
 }

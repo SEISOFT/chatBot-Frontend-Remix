@@ -17,8 +17,10 @@ import { stepsConfig } from "../../../utils/profiling/ProfilingStepsConfig";
 import { useProfiling } from "~/hooks/profiling/useProfiling";
 import { colors } from "~/styles/colors";
 import { Ico } from "~/assets/icons";
+import { useError } from "~/hooks/useError";
 
 export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
+  const { reportError } = useError();
   const { profilingData, updateSection, submitProfiling, isSubmitting } =
     useProfiling();
   const { activeStep, setActiveStep } = useSteps({ index: 0 });
@@ -42,7 +44,12 @@ export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
       });
       onComplete();
     } catch (error) {
-      console.error("Error al enviar datos de perfilamiento", error);
+      reportError({
+        component: "profiling.tsx Ln.48",
+        title: "Error al enviar datos de perfilamiento",
+        message: `${error}`,
+        showInProd: true,
+      });
     }
   };
 

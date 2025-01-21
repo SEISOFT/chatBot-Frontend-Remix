@@ -2,6 +2,7 @@ import { api } from "config/api";
 import { constants } from "config/constants";
 import { useState, ReactNode, useMemo, useEffect, useCallback } from "react";
 import { UserContext, User } from "~/contexts/UserContext";
+import { useError } from "~/hooks/useError";
 
 interface UserProviderProps {
   children: ReactNode;
@@ -10,32 +11,41 @@ interface UserProviderProps {
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { reportError } = useError();
 
-  const getUser = useCallback(async (token: string) => {
-    try {
-      const response = await fetch(`${api.CORE_URL}/user/get-user`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  const getUser = useCallback(
+    async (token: string) => {
+      try {
+        const response = await fetch(`${api.CORE_URL}/user/get-user`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      if (!response.ok) {
-        throw new Error("JWT inválido");
+        if (!response.ok) {
+          throw new Error("JWT inválido");
+        }
+
+        const { user } = await response.json();
+        setUser(user);
+        console.log("Usuario obtenido:", user);
+      } catch (error) {
+        reportError({
+          component: "UserProvider.tsx Ln.36",
+          title: "Error al obtener usuario",
+          message: `${error}`,
+          showInProd: true,
+        });
+        localStorage.removeItem(constants.JWT_SECRET);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
       }
-
-      const { user } = await response.json();
-      setUser(user);
-      console.log("Usuario obtenido:", user);
-    } catch (error) {
-      console.error("Error al obtener usuario:", error);
-      localStorage.removeItem(constants.JWT_SECRET);
-      setUser(null);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+    },
+    [reportError]
+  );
 
   useEffect(() => {
     const token = localStorage.getItem(constants.JWT_SECRET);

@@ -1,32 +1,38 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useError } from "./useError";
 
 export const useQRCode = () => {
+  const { reportError } = useError();
   const [qrCode, setQRCode] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const fetchQRCode = async () => {
+  const fetchQRCode = useCallback(async () => {
     setIsLoading(true);
-    setError(null);
     try {
-      const response = await fetch("https://chatbot-backend-1-nuoq.onrender.com/api-whatsapp/qr");
+      const response = await fetch(
+        "https://chatbot-backend-1-nuoq.onrender.com/api-whatsapp/qr"
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch QR code");
       }
       const data = await response.json();
       setQRCode(data.qr);
     } catch (error) {
-      console.error("Error fetching QR code:", error);
-      setError("Failed to fetch QR code");
+      reportError({
+        component: "useQRCode.tsx Ln.22",
+        title: "Error fetching QR code",
+        message: `${error}`,
+        showInProd: true,
+      });
       setQRCode(null);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [reportError]);
 
   useEffect(() => {
     fetchQRCode();
-  }, []);
+  }, [fetchQRCode]);
 
-  return { qrCode, error, isLoading, refetch: fetchQRCode };
+  return { qrCode, isLoading, refetch: fetchQRCode };
 };

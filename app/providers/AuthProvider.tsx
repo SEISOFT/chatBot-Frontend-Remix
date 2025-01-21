@@ -2,6 +2,7 @@ import { api } from "config/api";
 import { constants } from "config/constants";
 import { ReactNode, useMemo, useCallback, useState, useEffect } from "react";
 import { AuthContext } from "~/contexts/AuthContext";
+import { useError } from "~/hooks/useError";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -9,7 +10,7 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuth, setIsAuth] = useState<boolean>(false);
-
+  const { reportError } = useError();
   useEffect(() => {
     const token = localStorage.getItem(constants.JWT_SECRET);
     if (token) {
@@ -17,26 +18,33 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }, []);
 
-  const login = useCallback(async (email: string, password: string) => {
-    try {
-      const response = await fetch(`${api.API_URL}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+  const login = useCallback(
+    async (email: string, password: string) => {
+      try {
+        const response = await fetch(`${api.API_URL}/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
 
-      if (!response.ok) {
-        throw new Error("Credenciales inválidas.");
+        if (!response.ok) {
+          throw new Error("Credenciales inválidas.");
+        }
+
+        const { token } = await response.json();
+        localStorage.setItem(constants.JWT_SECRET, token);
+        setIsAuth(true);
+      } catch (error) {
+        reportError({
+          component: "AuthProvider.tsx Ln.39",
+          title: "Error al iniciar sesión",
+          message: `${error}`,
+          showInProd: true,
+        });
       }
-
-      const { token } = await response.json();
-      localStorage.setItem(constants.JWT_SECRET, token);
-      setIsAuth(true);
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error);
-      throw error;
-    }
-  }, []);
+    },
+    [reportError]
+  );
 
   const logout = useCallback(() => {
     localStorage.removeItem(constants.JWT_SECRET);

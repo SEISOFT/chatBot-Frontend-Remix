@@ -12,12 +12,14 @@ import {
 import { Form } from "@remix-run/react";
 import { TbEyeClosed, TbEye } from "react-icons/tb";
 import { useAuth } from "~/hooks/useAuth";
+import { useError } from "~/hooks/useError";
 
 interface LoginFormProps {
   onSuccess: () => void;
 }
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
+  const { reportError } = useError();
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +34,12 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
       await login(email, password);
       onSuccess();
     } catch (error) {
-      console.error(error || "Error al iniciar sesión. Intenta de nuevo.");
+      reportError({
+        component: "LoginForm.tsx Ln.38",
+        title: "Error al iniciar sesión. Intenta de nuevo.",
+        message: `${error}`,
+        showInProd: true,
+      });
     } finally {
       setIsLoading(false);
     }
