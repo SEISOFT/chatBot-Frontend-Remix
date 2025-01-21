@@ -26,7 +26,7 @@ export const stepsConfig: WizardStep[] = [
   {
     title: "Potencial de Mercado",
     description: "Proyecciones de ventas",
-    key: "potencialMercado",
+    key: "marketPotential",
   },
   {
     title: "Desafío Principal",

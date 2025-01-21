@@ -1,29 +1,31 @@
+import { api } from "config/api";
+import { constants } from "config/constants";
 import { useState } from "react";
 import { Profiling } from "~/components/organisms/profiling/types";
 
 const INITIAL_PROFILING_STATE: Profiling = {
   business: {
-    sector: "Comercio",
-    yearsOperating: "Menos de 1 año",
-    marketReach: "Local",
+    sector: null,
+    yearsOperating: null,
+    marketReach: null,
   },
   salesTeam: {
-    teamSize: "1-5",
-    usesTechTools: "No",
-    dailyMessages: "Menos de 10",
+    teamSize: null,
+    usesTechTools: null,
+    dailyMessages: null,
   },
   digitalMarketing: {
-    team: "No",
-    digitalTools: ["Email marketing", "Otro"],
-    socialMediaPresence: "Inactiva",
+    team: null,
+    digitalTools: [],
+    socialMediaPresence: null,
   },
-  potencialMercado: {
-    monthlySales: "Menos de $1M",
-    averageTicket: "Menos de $100 mil",
-    digitalSalesPercentage: "Ninguno",
+  marketPotential: {
+    monthlySales: null,
+    averageTicket: null,
+    digitalSalesPercentage: null,
   },
   openQuestion: {
-    mainChallenge: "",
+    mainChallenge: null,
   },
 };
 
@@ -31,7 +33,8 @@ export const useProfiling = () => {
   const [profilingData, setProfilingData] = useState<Profiling>(
     INITIAL_PROFILING_STATE
   );
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const token = localStorage.getItem(constants.JWT_SECRET);
   const updateSection = <K extends keyof Profiling>(
     key: K,
     data: Profiling[K]
@@ -39,5 +42,29 @@ export const useProfiling = () => {
     setProfilingData((prev) => ({ ...prev, [key]: data }));
   };
 
-  return { profilingData, updateSection };
+  const submitProfiling = async () => {
+    try {
+      console.log("entra");
+      setIsSubmitting(true);
+      const response = await fetch(`${api.CORE_URL}/user/update-user`, {
+        method: "PUT",
+        body: JSON.stringify(profilingData),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("JWT inválido");
+      }
+      console.log("Datos de perfilamiento enviados con éxito");
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      throw error;
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return { profilingData, updateSection, submitProfiling, isSubmitting };
 };

@@ -65,7 +65,7 @@ export const questionsConfig: QuestionsConfig = {
             key: "socialMediaPresence",
         },
     ],
-    potencialMercado: [
+    marketPotential: [
         {
             title: "¿Cuál es tu rango de ventas mensuales promedio?",
             options: [

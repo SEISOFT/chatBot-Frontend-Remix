@@ -19,12 +19,20 @@ import { colors } from "~/styles/colors";
 import { Ico } from "~/assets/icons";
 
 export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
-  const { profilingData, updateSection } = useProfiling();
+  const { profilingData, updateSection, submitProfiling, isSubmitting } =
+    useProfiling();
   const { activeStep, setActiveStep } = useSteps({ index: 0 });
   const toast = useToast();
 
-  const handleNext = () => {
-    if (activeStep === stepsConfig.length - 1) {
+  const handleNext = async () => {
+    if (activeStep < stepsConfig.length - 1) {
+      setActiveStep(activeStep + 1);
+      return;
+    }
+
+    try {
+      await submitProfiling();
+      console.log("Datos finales:", profilingData);
       toast({
         title: "Perfilamiento completado.",
         description: "Gracias por completar el formulario.",
@@ -32,10 +40,9 @@ export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
         duration: 3000,
         isClosable: true,
       });
-      console.log("Datos finales:", profilingData);
       onComplete();
-    } else {
-      setActiveStep(activeStep + 1);
+    } catch (error) {
+      console.error("Error al enviar datos de perfilamiento", error);
     }
   };
 
@@ -49,6 +56,10 @@ export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
   const stepKey = currentStep.key; // Clave de la sección actual
   const stepData = profilingData[stepKey]; // Datos de la sección actual
   const questions = questionsConfig[stepKey]; // Preguntas de la sección actual
+
+  function isAnyAnswerNull() {
+    return Object.values(stepData).some((value) => value === null);
+  }
 
   return (
     <Flex flexDir="column" gap={8}>
@@ -97,6 +108,8 @@ export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
             fontSize="sm"
             lineHeight={"normal"}
             onClick={handleNext}
+            disabled={isAnyAnswerNull()}
+            isLoading={isSubmitting}
           >
             {activeStep === stepsConfig.length - 1 ? "Finalizar" : "Siguiente"}
           </Button>

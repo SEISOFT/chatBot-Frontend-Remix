@@ -52,7 +52,7 @@ export type OpenQuestionResponse = string;
 interface Question<T extends string | string[]> {
   title: string; // Título de la pregunta
   options?: T[]; // Opciones de respuesta (solo para preguntas cerradas)
-  key: string; // Clave única que identifica la pregunta
+  key: ProfilingKey; // Clave única que identifica la pregunta
   multiple?: boolean; // Indica si se permiten múltiples respuestas
   textarea?: boolean; // Indica si es una pregunta abierta
 }
@@ -72,7 +72,7 @@ export type DigitalMarketingQuestion =
   | Question<DigitalTool>
   | Question<SocialMediaPresence>;
 
-export type PotencialMercadoQuestion =
+export type MarketPotentialQuestion =
   | Question<MonthlySales>
   | Question<AverageTicket>
   | Question<DigitalSalesPercentage>;
@@ -84,33 +84,47 @@ export interface QuestionsConfig {
   business: BusinessQuestion[];
   salesTeam: SalesTeamQuestion[];
   digitalMarketing: DigitalMarketingQuestion[];
-  potencialMercado: PotencialMercadoQuestion[];
+  marketPotential: MarketPotentialQuestion[];
   openQuestion: OpenQuestion[];
 }
 
 // 📌 Objeto resultante del formulario
+// 1. Ajusta la interfaz para permitir null
 export interface Profiling {
   business: {
-    sector: BusinessSector;
-    yearsOperating: BusinessYears;
-    marketReach: MarketReach;
+    sector: BusinessSector | null;
+    yearsOperating: BusinessYears | null;
+    marketReach: MarketReach | null;
   };
   salesTeam: {
-    teamSize: SalesTeamSize;
-    usesTechTools: TechToolsUsage;
-    dailyMessages: DailyMessages;
+    teamSize: SalesTeamSize | null;
+    usesTechTools: TechToolsUsage | null;
+    dailyMessages: DailyMessages | null;
   };
   digitalMarketing: {
-    team: MarketingTeam;
+    team: MarketingTeam | null;
     digitalTools: DigitalTool[];
-    socialMediaPresence: SocialMediaPresence;
+    socialMediaPresence: SocialMediaPresence | null;
   };
-  potencialMercado: {
-    monthlySales: MonthlySales;
-    averageTicket: AverageTicket;
-    digitalSalesPercentage: DigitalSalesPercentage;
+  marketPotential: {
+    monthlySales: MonthlySales | null;
+    averageTicket: AverageTicket | null;
+    digitalSalesPercentage: DigitalSalesPercentage | null;
   };
   openQuestion: {
-    mainChallenge: OpenQuestionResponse;
+    mainChallenge: OpenQuestionResponse | null;
   };
 }
+
+export type BusinessKey = keyof Profiling["business"]; 
+export type SalesTeamKey = keyof Profiling["salesTeam"];
+export type DigitalMarketingKey = keyof Profiling["digitalMarketing"];
+export type MarketPotentialKey = keyof Profiling["marketPotential"];
+export type OpenQuestionKey = keyof Profiling["openQuestion"];
+
+export type ProfilingKey =
+  | BusinessKey
+  | SalesTeamKey
+  | DigitalMarketingKey
+  | MarketPotentialKey
+  | OpenQuestionKey
