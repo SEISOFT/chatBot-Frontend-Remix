@@ -1,6 +1,6 @@
 // app/routes/index.tsx
 import { Box, Heading, Button } from "@chakra-ui/react";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate } from "react-router";
 
 export default function Index() {
   const navigate = useNavigate();

@@ -9,7 +9,7 @@ import {
   IconButton,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate } from "react-router";
 import { TbLogout, TbUser, TbCreditCard, TbMenu2 } from "react-icons/tb";
 import { AvatarBanner } from "~/components/molecules/AvatarBanner";
 import { AvatarCircle } from "~/components/atoms/AvatarCircle";

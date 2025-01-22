@@ -1,6 +1,6 @@
 import { NavigationProvider } from "~/providers/NavigationProvider";
 import { AuthProvider } from "~/providers/AuthProvider"; // Importa el AuthProvider
-import { Outlet } from "@remix-run/react";
+import { Outlet } from "react-router";
 import { UserProvider } from "~/providers/UserProvider";
 import { Sidebar } from "~/components/organisms/navigation/SideBar";
 import { Navbar } from "~/components/organisms/navigation/Navbar";

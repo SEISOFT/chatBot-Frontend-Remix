@@ -1,29 +1,12 @@
-import { vitePlugin as remix } from "@remix-run/dev";
+import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
   plugins: [
-    remix({
-      ssr: false,
-      future: {
-        v3_fetcherPersist: true,
-        v3_relativeSplatPath: true,
-        v3_throwAbortReason: true,
-      },
-      routes(defineRoutes) {
-        return defineRoutes((route) => {
-          route("/", "pages/index.tsx", { index: true });
-          route("login", "templates/LoginLayout.tsx", () => {
-            route("", "pages/login/login.tsx", { index: true });
-          });
-          route("dashboard", "templates/DashboardLayout.tsx", () => {
-            route("", "pages/dashboard/home.tsx", { index: true });
-          });
-        });
-      },
-    }),
+    reactRouter(),
+    tsconfigPaths(),
     svgr({
       include: ["**/*.svg?react", "**/*.svg?r"],
       svgrOptions: {
@@ -43,7 +26,7 @@ export default defineConfig({
         },
       },
     }),
-    tsconfigPaths(),
+
   ],
   build: {
     target: "esnext", // Apunta a navegadores modernos

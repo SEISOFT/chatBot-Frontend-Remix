@@ -1,11 +1,5 @@
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import type { LinksFunction } from "react-router";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./styles/theme";
 import { ErrorProvider } from "./providers/ErrorProvider";
