@@ -47,9 +47,12 @@ export const useProfiling = () => {
   const submitProfiling = async () => {
     try {
       setIsSubmitting(true);
+      const payload = {
+        profile: profilingData,
+      };
       const response = await fetch(`${api.CORE_URL}/user/update-user`, {
         method: "PUT",
-        body: JSON.stringify(profilingData),
+        body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
