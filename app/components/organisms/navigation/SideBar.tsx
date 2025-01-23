@@ -11,7 +11,7 @@ import {
   TbHome2,
   TbUsersGroup,
 } from "react-icons/tb";
-import { useLocation } from "@remix-run/react";
+import { useLocation } from "react-router";
 import { SharkyBanner } from "~/components/molecules/SharkyBanner";
 import { useNavigation } from "~/hooks/useNavigation";
 import { SidebarItem } from "~/components/molecules/navigation/SidebarItem";

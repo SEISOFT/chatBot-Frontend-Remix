@@ -1,6 +1,6 @@
 import { useAuth } from "~/hooks/useAuth";
 import { RegisterForm } from "../components/molecules/RegisterForm";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate } from "react-router";
 
 export default function Register() {
   const { login } = useAuth();
