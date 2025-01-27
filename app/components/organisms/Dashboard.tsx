@@ -7,31 +7,41 @@ import { ProfilingModal } from "~/components/molecules/profiling/ProfilingModal"
 import { SharkyProfile } from "../atoms/SharkyProfile";
 import { useModalControl } from "~/hooks/useModalControl";
 import { useWelcomeAnimation } from "~/hooks/profiling/useWelcomeAnimation";
+import { useEffect } from "react";
 
 export const Dashboard = () => {
-  const { user } = useUser();
-  const { qrCode, error, isLoading, refetch } = useQRCode();
-  const { isModalOpen, closeModal } = useModalControl();
+  const { user, refetchUser } = useUser();
+  const { qrCode, isLoading, refetch } = useQRCode();
+  const { isModalOpen, closeModal, openModal } = useModalControl();
   const { showWelcomeAnimation, triggerAnimation } = useWelcomeAnimation();
+  // Controlar el estado del modal basado en user.profile
+  useEffect(() => {
+    if (!user?.profile) {
+      console.log("entra aqui 3");
+      openModal(); // Mostrar modal si no hay perfil
+    } else {
+      console.log("entra aqui");
+      closeModal(); // Cerrar modal si el perfil está completo
+    }
+  }, [user?.profile, openModal, closeModal]);
 
-  const handleCompleteProfiling = () => {
-    closeModal();
-    triggerAnimation();
+  const handleCompleteProfiling = async () => {
+    refetchUser(); // Actualiza el contexto del usuario
+    closeModal(); // Cierra el modal
+    triggerAnimation(); // Activa la animación de bienvenida
   };
-
   return (
     <Box flex={"1"} overflowX={"auto"} py={10} px={6} position="relative">
       <Heading as="h1" size="xl" mb={4}>
         Welcome, {user?.email}!
       </Heading>
-
       {/* Mostrar QR Code */}
       <Box mt={8} textAlign="center">
         <Heading as="h2" size="md" mb={4}>
           Escanea este código QR
         </Heading>
         {isLoading && <Spinner size="xl" />}
-        {error && (
+        {!qrCode && (
           <Box>
             <Text color="red.500" mb={4}>
               No se pudo cargar el código QR. Intenta nuevamente.
@@ -85,7 +95,6 @@ export const Dashboard = () => {
           onClose={handleCompleteProfiling}
         />
       )}
-
       {/* Animación del Mensaje de Bienvenida */}
       <AnimatePresence>
         {showWelcomeAnimation && (

@@ -47,6 +47,13 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     [reportError]
   );
 
+  const refetchUser = useCallback(async () => {
+    const token = localStorage.getItem(constants.JWT_SECRET);
+    if (token) {
+      await getUser(token);
+    }
+  }, [getUser]);
+
   useEffect(() => {
     const token = localStorage.getItem(constants.JWT_SECRET);
     if (token) {
@@ -57,8 +64,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   }, [getUser]);
 
   const contextValue = useMemo(
-    () => ({ user, setUser, isLoading }),
-    [user, isLoading]
+    () => ({ user, setUser, isLoading, refetchUser }),
+    [user, isLoading, refetchUser]
   );
 
   return (
