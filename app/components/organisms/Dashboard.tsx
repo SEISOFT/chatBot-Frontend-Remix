@@ -14,21 +14,19 @@ export const Dashboard = () => {
   const { qrCode, isLoading, refetch } = useQRCode();
   const { isModalOpen, closeModal, openModal } = useModalControl();
   const { showWelcomeAnimation, triggerAnimation } = useWelcomeAnimation();
-  // Controlar el estado del modal basado en user.profile
+
   useEffect(() => {
     if (!user?.profile) {
-      console.log("entra aqui 3");
-      openModal(); // Mostrar modal si no hay perfil
+      openModal(); 
     } else {
-      console.log("entra aqui");
-      closeModal(); // Cerrar modal si el perfil está completo
+      closeModal(); 
     }
   }, [user?.profile, openModal, closeModal]);
 
   const handleCompleteProfiling = async () => {
-    refetchUser(); // Actualiza el contexto del usuario
-    closeModal(); // Cierra el modal
-    triggerAnimation(); // Activa la animación de bienvenida
+    refetchUser();
+    closeModal(); 
+    triggerAnimation(); 
   };
   return (
     <Box flex={"1"} overflowX={"auto"} py={10} px={6} position="relative">
