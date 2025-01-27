@@ -1,5 +1,5 @@
 import { Flex, Heading, Textarea } from "@chakra-ui/react";
-import { ProfilingQuestion } from "~/components/molecules/profiling/ProfilingQuestion";
+import { ProfilingQuestion } from "~/components/molecules/profiling/profilingQuestion";
 import { QuestionsConfig } from "../../organisms/profiling/types";
 
 interface ProfilingSectionProps<T> {

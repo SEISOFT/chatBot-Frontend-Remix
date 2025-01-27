@@ -1,0 +1,21 @@
+version: 1
+applications:
+  - appRoot: .
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - nvm install 22.11.0
+            - nvm use 22.11.0
+            - npm ci
+        build:
+          commands:
+            - npm run build
+      artifacts:
+
+        baseDirectory: build/client
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
