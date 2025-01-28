@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: "Retroguard";
-  src: url("/assets/fonts/Retroguard.ttf") format("truetype");
+  src: url("app/assets/fonts/Retroguard.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }

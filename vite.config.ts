@@ -28,10 +28,9 @@ export default defineConfig({
     }),
 
   ],
-  publicDir: 'app/assets',
   build: {
     target: "esnext", // Apunta a navegadores modernos
     minify: "esbuild", // Usa esbuild para una compilación rápida y eficiente
-    outDir: "build/client", // Carpeta de salida
+    outDir: "dist", // Carpeta de salida
   },
 });
