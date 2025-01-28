@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { Profiling } from "~/components/organisms/profiling/types";
 
 export interface User {
   username: string;
@@ -12,12 +13,14 @@ export interface User {
   type_of_document?: string;
   document_number?: string;
   plan?: string;
+  profile: Profiling;
 }
 
 export interface UserContextProps {
   user: User | null;
   setUser: (user: User) => void;
   isLoading: boolean;
+  refetchUser: () => void;
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(

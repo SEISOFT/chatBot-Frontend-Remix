@@ -7,31 +7,39 @@ import { ProfilingModal } from "~/components/molecules/profiling/ProfilingModal"
 import { SharkyProfile } from "../atoms/SharkyProfile";
 import { useModalControl } from "~/hooks/useModalControl";
 import { useWelcomeAnimation } from "~/hooks/profiling/useWelcomeAnimation";
+import { useEffect } from "react";
 
 export const Dashboard = () => {
-  const { user } = useUser();
-  const { qrCode, error, isLoading, refetch } = useQRCode();
-  const { isModalOpen, closeModal } = useModalControl();
+  const { user, refetchUser } = useUser();
+  const { qrCode, isLoading, refetch } = useQRCode();
+  const { isModalOpen, closeModal, openModal } = useModalControl();
   const { showWelcomeAnimation, triggerAnimation } = useWelcomeAnimation();
 
-  const handleCompleteProfiling = () => {
-    closeModal();
-    triggerAnimation();
-  };
+  useEffect(() => {
+    if (!user?.profile) {
+      openModal(); 
+    } else {
+      closeModal(); 
+    }
+  }, [user?.profile, openModal, closeModal]);
 
+  const handleCompleteProfiling = async () => {
+    refetchUser();
+    closeModal(); 
+    triggerAnimation(); 
+  };
   return (
     <Box flex={"1"} overflowX={"auto"} py={10} px={6} position="relative">
       <Heading as="h1" size="xl" mb={4}>
         Welcome, {user?.email}!
       </Heading>
-
       {/* Mostrar QR Code */}
       <Box mt={8} textAlign="center">
         <Heading as="h2" size="md" mb={4}>
           Escanea este código QR
         </Heading>
         {isLoading && <Spinner size="xl" />}
-        {error && (
+        {!qrCode && (
           <Box>
             <Text color="red.500" mb={4}>
               No se pudo cargar el código QR. Intenta nuevamente.
@@ -85,7 +93,6 @@ export const Dashboard = () => {
           onClose={handleCompleteProfiling}
         />
       )}
-
       {/* Animación del Mensaje de Bienvenida */}
       <AnimatePresence>
         {showWelcomeAnimation && (
