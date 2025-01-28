@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useError } from "./useError";
+import { api } from "config/api";
 
 export const useQRCode = () => {
   const { reportError } = useError();
@@ -9,9 +10,7 @@ export const useQRCode = () => {
   const fetchQRCode = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        "https://chatbot-backend-1-nuoq.onrender.com/api-whatsapp/qr"
-      );
+      const response = await fetch(`${api.WA_API}/api-whatsapp/qr`);
       if (!response.ok) {
         throw new Error("Failed to fetch QR code");
       }

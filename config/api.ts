@@ -1,4 +1,5 @@
 export const api = {
-    API_URL: import.meta.env.VITE_AUTH_API_URL || "http://localhost:4001/api",
-    CORE_URL: import.meta.env.VITE_AUTH_API_URL || "http://localhost:4002/api",
+    AUTH_API: import.meta.env.VITE_AUTH_API_URL || "",
+    CORE_API: import.meta.env.VITE_CORE_API_URL || "",
+    WA_API: import.meta.env.VITE_WA_API_URL || "",
 };
