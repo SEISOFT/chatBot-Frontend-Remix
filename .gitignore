@@ -1,7 +1,7 @@
 node_modules
 
 /.cache
-/build
+/build/client
 /public/build
 .env
 .react-router/
