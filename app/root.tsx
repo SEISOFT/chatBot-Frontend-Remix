@@ -7,7 +7,7 @@ import { ErrorProvider } from "./providers/ErrorProvider";
 export const links: LinksFunction = () => [
   {
     rel: "stylesheet",
-    href: "/app/styles/global.css",
+    href: "./assets/global.css",
     media: "print",
   },
 ];
