@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = useCallback(
     async (email: string, password: string) => {
       try {
-        const response = await fetch(`${api.API_URL}/auth/login`, {
+        const response = await fetch(`${api.AUTH_API}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),

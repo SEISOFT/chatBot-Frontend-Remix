@@ -16,7 +16,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const getUser = useCallback(
     async (token: string) => {
       try {
-        const response = await fetch(`${api.CORE_URL}/user/get-user`, {
+        const response = await fetch(`${api.CORE_API}/user/get-user`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
