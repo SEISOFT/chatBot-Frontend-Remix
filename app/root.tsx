@@ -1,16 +1,8 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-import type { LinksFunction } from "react-router";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./styles/theme";
 import { ErrorProvider } from "./providers/ErrorProvider";
-
-export const links: LinksFunction = () => [
-  {
-    rel: "stylesheet",
-    href: "./assets/global.css",
-    media: "print",
-  },
-];
+import "./styles/global.css";
 
 export function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
