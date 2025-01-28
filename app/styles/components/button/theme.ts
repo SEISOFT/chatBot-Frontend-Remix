@@ -115,7 +115,6 @@ const buttonTheme = defineStyleConfig({
     border: "2px",
     borderColor: "transparent",
     borderRadius: "50px",
-    fontFamily: "Inter",
     fontWeight: "600",
     justifyContent: "center",
     lineHeight: 1.6,

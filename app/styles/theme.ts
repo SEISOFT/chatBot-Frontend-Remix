@@ -18,8 +18,8 @@ const theme = extendTheme({
   },
   colors,
   fonts: {
-    body: "Inter, sans-serif",
-    heading: "Poppins, sans-serif",
+    body: "sans-serif",
+    heading: "sans-serif",
   },
   components: {
     Heading: headingTheme,
