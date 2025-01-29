@@ -8,8 +8,9 @@ import {
   Divider,
   IconButton,
   useBreakpointValue,
+  Text,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { TbLogout, TbUser, TbCreditCard, TbMenu2 } from "react-icons/tb";
 import { AvatarBanner } from "~/components/molecules/AvatarBanner";
 import { AvatarCircle } from "~/components/atoms/AvatarCircle";
@@ -20,6 +21,7 @@ import { SharkyBanner } from "~/components/molecules/SharkyBanner";
 
 export const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { logout } = useAuth();
   const { toggleSidebar } = useNavigation();
   const isMobile = useBreakpointValue({ base: true, lg: false });
@@ -28,12 +30,12 @@ export const Navbar = () => {
     {
       label: "Mi Perfil",
       icon: <TbUser fontSize={"20px"} fontWeight={"bold"} />,
-      path: "/dashboard",
+      path: "/dashboard/my-profile",
     },
     {
       label: "Mi Subscripción",
       icon: <TbCreditCard fontSize={"20px"} fontWeight={"bold"} />,
-      path: "/dashboard",
+      path: "/dashboard/account",
     },
     {
       label: "Cerrar Sesión",
@@ -47,25 +49,26 @@ export const Navbar = () => {
 
   return (
     <Flex
-      bg={"white"}
+      bg="white"
       boxShadow="sm"
-      justifyContent={"space-between"}
-      alignItems={"center"}
+      justifyContent="space-between"
+      alignItems="center"
       py={2}
       px={3}
-      maxH={"60px"}
+      maxH="60px"
     >
       <Flex gap={4}>
         <IconButton
           colorScheme="transparent"
           color={colors.Slate[600]}
           aria-label="Toggle Sidebar"
-          fontSize={"24px"}
+          fontSize="24px"
           icon={<TbMenu2 />}
           onClick={toggleSidebar}
         />
         {isMobile && <SharkyBanner isCollapsed={false} />}
       </Flex>
+
       <Menu isLazy>
         <MenuButton>
           <AvatarCircle />
@@ -74,21 +77,29 @@ export const Navbar = () => {
           <AvatarBanner />
           <Divider />
           <Box>
-            {navbarItems.map((item) => (
-              <MenuItem
-                icon={item.icon}
-                key={item.label}
-                onClick={() => {
-                  if (item.action) {
-                    item.action();
-                  } else if (item.path) {
-                    navigate(item.path);
-                  }
-                }}
-              >
-                {item.label}
-              </MenuItem>
-            ))}
+            {navbarItems.map((item) => {
+              const isActive =
+                item.path && location.pathname.startsWith(item.path);
+
+              return (
+                <MenuItem
+                  key={item.label}
+                  icon={item.icon}
+                  bg={isActive ? colors.Sky[100] : "white"}
+                  color={isActive ? colors.Blue[500] : colors.Slate[600]}
+                  fontWeight={"bold"}
+                  onClick={() => {
+                    if (item.action) {
+                      item.action();
+                    } else if (item.path) {
+                      navigate(item.path);
+                    }
+                  }}
+                >
+                  <Text pt={1}>{item.label}</Text>
+                </MenuItem>
+              );
+            })}
           </Box>
         </MenuList>
       </Menu>

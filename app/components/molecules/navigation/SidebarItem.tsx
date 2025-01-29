@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { colors } from "~/styles/colors";
 import { SubItemList } from "../../molecules/navigation/SubItemList";
+import { useNavigate } from "react-router";
 
 interface SidebarItemProps {
   label: string;
@@ -21,10 +22,19 @@ interface SidebarItemProps {
   subItems?: string[];
   isCollapsed: boolean;
   isActive?: boolean;
+  path: string;
 }
 
 export const SidebarItem = memo(
-  ({ label, icon, subItems, isCollapsed, isActive }: SidebarItemProps) => {
+  ({
+    label,
+    path,
+    icon,
+    subItems,
+    isCollapsed,
+    isActive,
+  }: SidebarItemProps) => {
+    const navigate = useNavigate();
     return (
       <AccordionItem border="none">
         <Popover placement="right-start" trigger="hover">
@@ -49,6 +59,9 @@ export const SidebarItem = memo(
                       h={"20px"}
                       fontWeight={"bold"}
                       color={isActive ? colors.Blue[500] : colors.Slate[600]}
+                      onClick={() => {
+                        navigate(path);
+                      }}
                     >
                       {label}
                     </Text>

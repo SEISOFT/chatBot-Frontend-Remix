@@ -16,7 +16,8 @@ const menuTheme = defineMultiStyleConfig({
     variants: {
         primary: {
             button: {
-                justifyContent: "center"
+                justifyContent: "center",
+                alignItems:"center"
             },
             icon: {
                 pr: "2",
@@ -30,14 +31,14 @@ const menuTheme = defineMultiStyleConfig({
                 gap: "4"
             },
             item: {
-                p: '2',
+              
                 fontWeight: "bold",
                 color: colors.Slate[600],
                 bg: "white",
                 borderRadius: "md",
                 cursor: "pointer",
                 fontSize: "14px",
-                _hover: { bg: colors.Slate[100], color: colors.Blue[500] },
+                _hover: { bg: colors.Slate[100]},
                 margin: 0
             }
         }

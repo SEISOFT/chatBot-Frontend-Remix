@@ -4,7 +4,7 @@ import { Profiling } from "~/components/organisms/profiling/types";
 export interface User {
   username: string;
   email: string;
-  password: string;
+  password?: string;
   phone: string;
   country?: string;
   province?: string;
@@ -13,7 +13,7 @@ export interface User {
   type_of_document?: string;
   document_number?: string;
   plan?: string;
-  profile: Profiling;
+  profile?: Profiling;
 }
 
 export interface UserContextProps {
@@ -21,6 +21,7 @@ export interface UserContextProps {
   setUser: (user: User) => void;
   isLoading: boolean;
   refetchUser: () => void;
+  updateUser: (user: User) => void;
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(

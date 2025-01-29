@@ -71,6 +71,7 @@ export const Sidebar = () => {
         >
           {sidebarItems.map((item) => (
             <SidebarItem
+              path={item.path}
               key={item.label}
               label={item.label}
               icon={item.icon}

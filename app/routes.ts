@@ -9,6 +9,8 @@ export default remixRoutesOptionAdapter((defineRoutes) => {
         });
         route("dashboard", "templates/DashboardLayout.tsx", () => {
             route("", "pages/dashboard/home.tsx", { index: true });
+            route("account", "pages/dashboard/account.tsx");
+            route("my-profile", "pages/dashboard/myProfile.tsx");
         });
     });
 }) satisfies RouteConfig;

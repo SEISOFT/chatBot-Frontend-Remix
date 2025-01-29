@@ -9,6 +9,7 @@ interface UserProviderProps {
 }
 
 export const UserProvider = ({ children }: UserProviderProps) => {
+  const token = localStorage.getItem(constants.JWT_SECRET);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { reportError } = useError();
@@ -33,7 +34,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         console.log("Usuario obtenido:", user);
       } catch (error) {
         reportError({
-          component: "UserProvider.tsx Ln.36",
+          component: "UserProvider.tsx Ln.37",
           title: "Error al obtener usuario",
           message: `${error}`,
           showInProd: true,
@@ -46,7 +47,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     },
     [reportError]
   );
-
   const refetchUser = useCallback(async () => {
     const token = localStorage.getItem(constants.JWT_SECRET);
     if (token) {
@@ -54,18 +54,53 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }
   }, [getUser]);
 
+  const updateUser = useCallback(
+    async (newUser: User) => {
+      try {
+        const payload = {
+          username: newUser.username,
+          address: newUser.address,
+          city: newUser.city,
+          country: newUser.country,
+          province: newUser.province,
+        };
+        const response = await fetch(`${api.CORE_API}/user/update-user`, {
+          method: "PUT",
+          body: JSON.stringify(payload),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error("JWT inválido");
+        }
+        refetchUser();
+      } catch (error) {
+        reportError({
+          component: "userProvider.tsx Ln.69",
+          title: "Error actualizar el usuario",
+          message: `${error}`,
+          showInProd: true,
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [reportError, refetchUser, token]
+  );
+
   useEffect(() => {
-    const token = localStorage.getItem(constants.JWT_SECRET);
     if (token) {
       getUser(token);
     } else {
       setIsLoading(false);
     }
-  }, [getUser]);
+  }, [token, getUser]);
 
   const contextValue = useMemo(
-    () => ({ user, setUser, isLoading, refetchUser }),
-    [user, isLoading, refetchUser]
+    () => ({ user, setUser, isLoading, refetchUser, updateUser }),
+    [user, isLoading, refetchUser, updateUser]
   );
 
   return (

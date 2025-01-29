@@ -4,10 +4,10 @@ import { QRCodeCanvas } from "qrcode.react";
 import { useUser } from "~/hooks/useUser";
 import { motion, AnimatePresence } from "framer-motion";
 import { ProfilingModal } from "~/components/molecules/profiling/ProfilingModal";
-import { SharkyProfile } from "../atoms/SharkyProfile";
 import { useModalControl } from "~/hooks/useModalControl";
 import { useWelcomeAnimation } from "~/hooks/profiling/useWelcomeAnimation";
 import { useEffect } from "react";
+import { SharkyProfile } from "~/components/atoms/SharkyProfile";
 
 export const Dashboard = () => {
   const { user, refetchUser } = useUser();

@@ -50,7 +50,7 @@ export const useProfiling = () => {
       const payload = {
         profile: profilingData,
       };
-      const response = await fetch(`${api.CORE_URL}/user/update-user`, {
+      const response = await fetch(`${api.CORE_API}/user/update-user`, {
         method: "PUT",
         body: JSON.stringify(payload),
         headers: {
