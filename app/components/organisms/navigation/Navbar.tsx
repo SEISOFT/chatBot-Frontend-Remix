@@ -82,7 +82,7 @@ export const Navbar = () => {
             icon={<TbMenu2 />}
             onClick={toggleSidebar}
           />
-          <SharkyBanner isCollapsed={false} />
+          <SharkyBanner isCollapsed={true} />
         </Flex>
       )}
 

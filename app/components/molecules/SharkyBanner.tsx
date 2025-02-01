@@ -8,8 +8,14 @@ interface SharkyBannerProps {
 
 export const SharkyBanner = ({ isCollapsed }: SharkyBannerProps) => {
   return (
-    <Flex alignItems="center" pl={isCollapsed ? "4px" : "0px"} justifyContent={isCollapsed ? "normal" : "center"} gap={4} minH={"42px"}>
-      <SharkyProfile w={10} minW={10} />
+    <Flex
+      alignItems="center"
+      pl={isCollapsed ? "4px" : "0px"}
+      justifyContent={isCollapsed ? "normal" : "center"}
+      gap={4}
+      minH={"42px"}
+    >
+      {isCollapsed && <SharkyProfile w={10} minW={10} />}
       {!isCollapsed && (
         <Heading
           as="h1"
