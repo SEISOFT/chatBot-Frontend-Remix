@@ -55,18 +55,12 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   }, [getUser]);
 
   const updateUser = useCallback(
-    async (newUser: User) => {
+    async (patch: Partial<User>) => {
+      const merged = { ...user, ...patch };
       try {
-        const payload = {
-          username: newUser.username,
-          address: newUser.address,
-          city: newUser.city,
-          country: newUser.country,
-          province: newUser.province,
-        };
         const response = await fetch(`${api.CORE_API}/user/update-user`, {
           method: "PUT",
-          body: JSON.stringify(payload),
+          body: JSON.stringify(merged),
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -87,7 +81,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         setIsLoading(false);
       }
     },
-    [reportError, refetchUser, token]
+    [refetchUser, reportError, token, user]
   );
 
   useEffect(() => {

@@ -1,165 +1,201 @@
-import { Box, Heading, Spinner, Button, Text, Flex } from "@chakra-ui/react";
+import { Heading, Flex, useDisclosure } from "@chakra-ui/react";
 import { useQRCode } from "~/hooks/useQRCode";
-import { QRCodeCanvas } from "qrcode.react";
 import { useUser } from "~/hooks/useUser";
-import { motion, AnimatePresence } from "framer-motion";
 import { ProfilingModal } from "~/components/molecules/profiling/ProfilingModal";
-import { useModalControl } from "~/hooks/useModalControl";
 import { useWelcomeAnimation } from "~/hooks/profiling/useWelcomeAnimation";
-import { useEffect } from "react";
-import { SharkyProfile } from "~/components/atoms/SharkyProfile";
+import { useEffect, useState } from "react";
+import { useNavigation } from "~/hooks/useNavigation";
+import { colors } from "~/styles/colors";
+import { WhatsAppConnectionCard } from "~/components/molecules/dashboard/WhatsAppConnectionCard";
+import { StatsCards } from "~/components/molecules/dashboard/StatsCards";
+import { ModalBlurOverlay } from "~/components/atoms/profiling/ModalBlurOverlay";
+import { WelcomeAnimation } from "~/components/atoms/profiling/WelcomeAnimation";
 
 export const Dashboard = () => {
   const { user, refetchUser } = useUser();
   const { qrCode, isLoading, refetch } = useQRCode();
-  const { isModalOpen, closeModal, openModal } = useModalControl();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { showWelcomeAnimation, triggerAnimation } = useWelcomeAnimation();
+  const [countdown, setCountdown] = useState(0);
+  const { isSidebarCollapsed } = useNavigation();
+  const QR_DURATION = 50;
+  const statsData = [
+    { label: "Chats Atendidos", value: 420 },
+    { label: "Ventas", value: 57 },
+    { label: "Conversiones", value: 30 },
+    { label: "Tickets Abiertos", value: 12 },
+  ];
+  useEffect(() => {
+    if (qrCode) {
+      setCountdown(QR_DURATION);
+    }
+  }, [qrCode]);
 
   useEffect(() => {
-    if (!user?.profile) {
-      openModal(); 
-    } else {
-      closeModal(); 
-    }
-  }, [user?.profile, openModal, closeModal]);
+    if (!qrCode || countdown <= 0) return;
+
+    const intervalId = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [qrCode, countdown]);
+
+  useEffect(() => {
+    if (!user?.profile) onOpen();
+    else onClose();
+  }, [onClose, onOpen, user?.profile]);
 
   const handleCompleteProfiling = async () => {
     refetchUser();
-    closeModal(); 
-    triggerAnimation(); 
+    onClose();
+    triggerAnimation();
   };
+
   return (
-    <Box flex={"1"} overflowX={"auto"} py={10} px={6} position="relative">
-      <Heading as="h1" size="xl" mb={4}>
-        Welcome, {user?.email}!
+    <Flex
+      flexDir={"column"}
+      py={9}
+      px={4}
+      gap={4}
+      w={"100%"}
+      maxW={"1440px"}
+      mx={"auto"}
+    >
+      <Heading
+        as="h1"
+        fontSize="24px"
+        color={colors.Custom.textBlue}
+        fontWeight={"black"}
+      >
+        ¡Bienvenido, {user?.username ?? "Sharky user"}!
       </Heading>
-      {/* Mostrar QR Code */}
-      <Box mt={8} textAlign="center">
-        <Heading as="h2" size="md" mb={4}>
-          Escanea este código QR
-        </Heading>
-        {isLoading && <Spinner size="xl" />}
-        {!qrCode && (
-          <Box>
-            <Text color="red.500" mb={4}>
-              No se pudo cargar el código QR. Intenta nuevamente.
-            </Text>
-            <Button colorScheme="blue" onClick={refetch}>
-              Reintentar
-            </Button>
-          </Box>
-        )}
-        {qrCode && (
-          <Box
-            display="inline-block"
-            p={4}
-            bg="white"
-            borderRadius="md"
-            boxShadow="md"
-          >
-            <QRCodeCanvas
-              value={qrCode}
-              size={200}
-              fgColor="#000000"
-              bgColor="#ffffff"
-            />
-          </Box>
-        )}
-      </Box>
+      <Flex
+        gap={4}
+        flexDir={{
+          base: "column",
+          xl: isSidebarCollapsed ? "row" : "column",
+          "2xl": "row",
+        }}
+      >
+        <WhatsAppConnectionCard
+          qrCode={qrCode}
+          isLoading={isLoading}
+          countdown={countdown}
+          onRefresh={refetch}
+        />
+        <StatsCards
+          statsData={statsData}
+          isSidebarCollapsed={isSidebarCollapsed}
+        />
+      </Flex>
+      <Flex
+        gap={4}
+        flexDir={{
+          base: "column",
+          xl: isSidebarCollapsed ? "row" : "column",
+          "2xl": "row",
+        }}
+      >
+        <WhatsAppConnectionCard
+          qrCode={qrCode}
+          isLoading={isLoading}
+          countdown={countdown}
+          onRefresh={refetch}
+        />
+        <StatsCards
+          statsData={statsData}
+          isSidebarCollapsed={isSidebarCollapsed}
+        />
+      </Flex>
+      <Flex
+        gap={4}
+        flexDir={{
+          base: "column",
+          xl: isSidebarCollapsed ? "row" : "column",
+          "2xl": "row",
+        }}
+      >
+        <WhatsAppConnectionCard
+          qrCode={qrCode}
+          isLoading={isLoading}
+          countdown={countdown}
+          onRefresh={refetch}
+        />
+        <StatsCards
+          statsData={statsData}
+          isSidebarCollapsed={isSidebarCollapsed}
+        />
+      </Flex>
+      <Flex
+        gap={4}
+        flexDir={{
+          base: "column",
+          xl: isSidebarCollapsed ? "row" : "column",
+          "2xl": "row",
+        }}
+      >
+        <WhatsAppConnectionCard
+          qrCode={qrCode}
+          isLoading={isLoading}
+          countdown={countdown}
+          onRefresh={refetch}
+        />
+        <StatsCards
+          statsData={statsData}
+          isSidebarCollapsed={isSidebarCollapsed}
+        />
+      </Flex>
+      <Flex
+        gap={4}
+        flexDir={{
+          base: "column",
+          xl: isSidebarCollapsed ? "row" : "column",
+          "2xl": "row",
+        }}
+      >
+        <WhatsAppConnectionCard
+          qrCode={qrCode}
+          isLoading={isLoading}
+          countdown={countdown}
+          onRefresh={refetch}
+        />
+        <StatsCards
+          statsData={statsData}
+          isSidebarCollapsed={isSidebarCollapsed}
+        />
+      </Flex>
+      <Flex
+        gap={4}
+        flexDir={{
+          base: "column",
+          xl: isSidebarCollapsed ? "row" : "column",
+          "2xl": "row",
+        }}
+      >
+        <WhatsAppConnectionCard
+          qrCode={qrCode}
+          isLoading={isLoading}
+          countdown={countdown}
+          onRefresh={refetch}
+        />
+        <StatsCards
+          statsData={statsData}
+          isSidebarCollapsed={isSidebarCollapsed}
+        />
+      </Flex>
       {/* Fondo desenfocado siempre activo */}
-      <AnimatePresence>
-        {(isModalOpen || showWelcomeAnimation) && (
-          <motion.div
-            initial={{ backdropFilter: "blur(10px)", opacity: 1 }}
-            animate={{ backdropFilter: "blur(10px)", opacity: 1 }}
-            exit={{ backdropFilter: "blur(0px)", opacity: 0 }}
-            transition={{ duration: 2, ease: "easeInOut" }} // Animación de salida suave
-            style={{
-              position: "fixed",
-              top: "0",
-              left: "0",
-              width: "100%",
-              height: "100%",
-              backgroundColor: "transparent",
-              zIndex: 1000,
-            }}
-          />
-        )}
-      </AnimatePresence>
+      {(isOpen || showWelcomeAnimation) && <ModalBlurOverlay />}
+
       {/* Modal de Perfilamiento */}
-      {isModalOpen && (
+      {isOpen && (
         <ProfilingModal
-          isOpen={isModalOpen}
+          isOpen={isOpen}
           onClose={handleCompleteProfiling}
         />
       )}
       {/* Animación del Mensaje de Bienvenida */}
-      <AnimatePresence>
-        {showWelcomeAnimation && (
-          <Flex
-            as={motion.div}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: "2", ease: "easeInOut" }}
-            position="fixed"
-            top="0"
-            left="0"
-            width="100%"
-            height="100%"
-            justifyContent="center"
-            alignItems="center"
-            zIndex={1100}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-              transition={{
-                duration: 1.5,
-                ease: "easeInOut",
-              }}
-              style={{
-                textAlign: "center",
-                textTransform: "uppercase",
-                textShadow: "0px 0px 10px rgba(37, 99, 235, 0.8)",
-                fontFamily: "Retroguard",
-                lineHeight: 1.2,
-              }}
-            >
-              <SharkyProfile w="clamp(80px, 10vw, 120px)" mx="auto" mb={4} />
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.5 }}
-                style={{
-                  display: "block",
-                  fontSize: "clamp(32px, 6vw, 64px)",
-                  fontWeight: "bold",
-                  color: "white",
-                }}
-              >
-                Bienvenido a
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.5, delay: 0.5 }}
-                style={{
-                  display: "block",
-                  fontSize: "clamp(48px, 10vw, 96px)",
-                  fontWeight: "bold",
-                  color: "#2563EB",
-                }}
-              >
-                Sharky
-              </motion.span>
-            </motion.div>
-          </Flex>
-        )}
-      </AnimatePresence>
-    </Box>
+      {showWelcomeAnimation && <WelcomeAnimation />}
+    </Flex>
   );
 };

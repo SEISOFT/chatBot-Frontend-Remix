@@ -8,7 +8,7 @@ export const AvatarBanner = () => {
   return (
     <Flex gap={4} alignItems={"center"}>
       <Avatar
-        name="Andres Parra"
+        name={user?.username}
         w={"40px"}
         h={"40px"}
         bg={colors.Blue[500]}
@@ -20,7 +20,7 @@ export const AvatarBanner = () => {
       </Avatar>
       <Flex flexDir={"column"}>
         <Text color={colors.Slate[600]} fontWeight={"bold"}>
-          Andres Parra
+          {user?.username}
         </Text>
         <Text color={colors.Slate[400]}>{user?.email}</Text>
       </Flex>

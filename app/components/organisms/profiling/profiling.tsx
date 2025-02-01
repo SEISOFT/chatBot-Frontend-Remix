@@ -12,16 +12,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ProfilingForm } from "~/components/molecules/profiling/profilingForm";
-import { questionsConfig } from "../../../utils/profiling/questionsConfig";
-import { stepsConfig } from "../../../utils/profiling/ProfilingStepsConfig";
 import { useProfiling } from "~/hooks/profiling/useProfiling";
 import { colors } from "~/styles/colors";
 import { Ico } from "~/assets/icons";
 import { useError } from "~/hooks/useError";
+import { stepsConfig } from "~/utils/profiling/ProfilingStepsConfig";
+import { questionsConfig } from "~/utils/profiling/questionsConfig";
 
 export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
   const { reportError } = useError();
-  const { profilingData, updateSection, submitProfiling, isSubmitting } =
+  const { profilingData, updateSection, submitProfiling, isLoading } =
     useProfiling();
   const { activeStep, setActiveStep } = useSteps({ index: 0 });
   const toast = useToast();
@@ -42,7 +42,6 @@ export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
         duration: 3000,
         isClosable: true,
       });
-      onComplete();
     } catch (error) {
       reportError({
         component: "profiling.tsx Ln.48",
@@ -51,6 +50,7 @@ export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
         showInProd: true,
       });
     }
+    onComplete();
   };
 
   const handlePrev = () => {
@@ -116,7 +116,7 @@ export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
             lineHeight={"normal"}
             onClick={handleNext}
             disabled={isAnyAnswerNull()}
-            isLoading={isSubmitting}
+            isLoading={isLoading}
           >
             {activeStep === stepsConfig.length - 1 ? "Finalizar" : "Siguiente"}
           </Button>

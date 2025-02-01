@@ -21,7 +21,7 @@ export interface UserContextProps {
   setUser: (user: User) => void;
   isLoading: boolean;
   refetchUser: () => void;
-  updateUser: (user: User) => void;
+  updateUser: (user: Partial<User>) => void; 
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(

@@ -284,5 +284,11 @@ export const colors = {
     800: "#9f1239",
     900: "#881337",
     950: "#4a044e"
+  },
+  Custom:{
+    cardBlue: "#c9f0ff",
+    textBlue: "#003D5A",
+    cardYellow: "#feedd1",
+    textYellow: "#5a2803"
   }
 };

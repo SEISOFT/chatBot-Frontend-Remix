@@ -18,7 +18,7 @@ export const ProfilingModal = ({ isOpen, onClose }: ProfilingModalProps) => {
   return (
     <Modal
       isOpen={isOpen}
-      onClose={() => {}}
+      onClose={onClose}
       isCentered
       size={{ base: "full", sm: "sm" }}
     >

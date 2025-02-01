@@ -42,7 +42,7 @@ export const SidebarItem = memo(
             <AccordionButton
               p={2}
               bg={isActive ? colors.Sky[100] : "white"}
-              borderRadius="md"
+              borderRadius="xl"
               _hover={{ bg: colors.Slate[100] }}
             >
               <Flex align="center" justify="space-between" w="full">
@@ -50,6 +50,9 @@ export const SidebarItem = memo(
                   <Box
                     fontSize={"20px"}
                     color={isActive ? colors.Blue[500] : colors.Slate[600]}
+                    onClick={() => {
+                      navigate(path);
+                    }}
                   >
                     {icon}
                   </Box>

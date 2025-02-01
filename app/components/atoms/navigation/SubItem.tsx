@@ -13,7 +13,7 @@ export const SubItem = memo(({ label, isCollapsed, onClick }: SubItemProps) => {
     <Text
       py={2}
       pl={isCollapsed ? 2 : 9}
-      borderRadius="md"
+      borderRadius="xl"
       fontSize="sm"
       color={colors.Slate[600]}
       _hover={{

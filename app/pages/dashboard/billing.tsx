@@ -1,11 +1,11 @@
-import { Account } from "~/components/organisms/dashboard/Account";
+import { Billing } from "~/components/organisms/dashboard/Billing";
 import { ProtectedRoute } from "~/guards/ProtectedRoute";
 
 
 export default function AccountPage() {
   return (
     <ProtectedRoute>
-      <Account />
+      <Billing />
     </ProtectedRoute>
   );
 }

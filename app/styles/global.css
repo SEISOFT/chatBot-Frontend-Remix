@@ -12,3 +12,38 @@
 .login-title {
   font-family: "Retroguard" !important;
 }
+
+@font-face {
+  font-family: "SNPro";
+  src: url("../assets/fonts/SNPro-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SNPro";
+  src: url("../assets/fonts/SNPro-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SNPro";
+  src: url("../assets/fonts/SNPro-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SNPro";
+  src: url("../assets/fonts/SNPro-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SNPro";
+  src: url("../assets/fonts/SNPro-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}

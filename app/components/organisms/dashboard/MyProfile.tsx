@@ -136,6 +136,7 @@ export const MyProfile = () => {
           <FormControl maxW={{ base: "full", md: "370px" }}>
             <FormLabel>Email</FormLabel>
             <Input
+              disabled
               name="email"
               value={formData.email}
               isReadOnly
@@ -147,6 +148,7 @@ export const MyProfile = () => {
           <FormControl maxW={{ base: "full", md: "370px" }}>
             <FormLabel>Teléfono</FormLabel>
             <Input
+              disabled
               name="phone"
               value={formData.phone}
               isReadOnly
@@ -158,6 +160,7 @@ export const MyProfile = () => {
           <FormControl maxW={{ base: "full", md: "370px" }}>
             <FormLabel>Tipo de documento</FormLabel>
             <Input
+              disabled
               name="type_of_document"
               value={formData.type_of_document}
               isReadOnly
@@ -169,6 +172,7 @@ export const MyProfile = () => {
           <FormControl maxW={{ base: "full", md: "370px" }}>
             <FormLabel>Número de documento</FormLabel>
             <Input
+              disabled
               name="document_number"
               value={formData.document_number}
               isReadOnly

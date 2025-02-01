@@ -15,12 +15,13 @@ import { useLocation } from "react-router";
 import { SharkyBanner } from "~/components/molecules/SharkyBanner";
 import { useNavigation } from "~/hooks/useNavigation";
 import { SidebarItem } from "~/components/molecules/navigation/SidebarItem";
+import { colors } from "~/styles/colors";
 
 const sidebarItems = [
-  { label: "Inicio", icon: <TbHome2 />, path: "/dashboard" },
+  { label: "Inicio", icon: <TbHome2 fontSize={"25px"} />, path: "/dashboard" },
   {
     label: "Comunidad",
-    icon: <TbUsersGroup />,
+    icon: <TbUsersGroup fontSize={"25px"} />,
     subItems: ["Foros", "Eventos"],
     path: "/community",
   },
@@ -38,24 +39,30 @@ export const Sidebar = () => {
   const sidebarWidth = getSidebarWidth();
   return (
     <Flex
+      as="nav"
+      position="fixed"
+      top={{ base: "unset", lg: "2" }}
+      left={{ base: "0", lg: "2" }}
+      width={sidebarWidth}
+      zIndex={999}
+      boxShadow="sm"
       flexDir={"column"}
-      h={isMobile ? "calc(100vh - 60px)" : "100vh"}
-      px={4}
+      h={isMobile ? "calc(100vh - 60px)" : "calc(100vh - 16px)"}
+      px={isSidebarCollapsed ? 2 : 4}
       py={2}
-      mt={isMobile ? "0" : "-60px"}
       w={sidebarWidth}
       maxW={"314px"}
       transition="width 0.4s"
       bg="white"
       display={isMobile && isSidebarCollapsed ? "none" : "block"}
-      position={isMobile ? "fixed" : "sticky"}
-      top={isMobile ? "60px" : 0}
-      zIndex={1000}
-      boxShadow="sm"
+      border={`2px solid ${colors.Gray[100]}`}
+      borderTop={{base:0, lg:`2px solid ${colors.Gray[100]}`}}
+      borderRadius={{ base: 0, lg: "2xl" }}
     >
       <Flex
         flexDir={"column"}
         gap={12}
+        justifyContent={"start"}
         overflow={"hidden"}
         h={isMobile ? "100%" : calc("100% - 220px").toString()}
       >
@@ -67,7 +74,8 @@ export const Sidebar = () => {
           allowToggle
           display={"flex"}
           flexDir={"column"}
-          width={isSidebarCollapsed ? "36px" : "auto"}
+          alignItems={isSidebarCollapsed ? "center" : "normal"}
+          width={isSidebarCollapsed ? "50px" : "auto"}
         >
           {sidebarItems.map((item) => (
             <SidebarItem

@@ -1,8 +1,7 @@
-import { api } from "config/api";
-import { constants } from "config/constants";
 import { useState } from "react";
 import { Profiling } from "~/components/organisms/profiling/types";
 import { useError } from "../useError";
+import { useUser } from "../useUser";
 
 const INITIAL_PROFILING_STATE: Profiling = {
   business: {
@@ -32,11 +31,10 @@ const INITIAL_PROFILING_STATE: Profiling = {
 
 export const useProfiling = () => {
   const { reportError } = useError();
+  const { isLoading, updateUser } = useUser();
   const [profilingData, setProfilingData] = useState<Profiling>(
     INITIAL_PROFILING_STATE
   );
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const token = localStorage.getItem(constants.JWT_SECRET);
   const updateSection = <K extends keyof Profiling>(
     key: K,
     data: Profiling[K]
@@ -46,32 +44,16 @@ export const useProfiling = () => {
 
   const submitProfiling = async () => {
     try {
-      setIsSubmitting(true);
-      const payload = {
-        profile: profilingData,
-      };
-      const response = await fetch(`${api.CORE_API}/user/update-user`, {
-        method: "PUT",
-        body: JSON.stringify(payload),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("JWT inválido");
-      }
+      updateUser({ profile: profilingData });
     } catch (error) {
       reportError({
-        component: "useProfiling.tsx Ln.63",
-        title: "Error al iniciar sesión",
+        component: "useProfiling.tsx Ln.52",
+        title: "Error actualizar el usuario",
         message: `${error}`,
         showInProd: true,
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
-  return { profilingData, updateSection, submitProfiling, isSubmitting };
+  return { profilingData, updateSection, submitProfiling, isLoading };
 };

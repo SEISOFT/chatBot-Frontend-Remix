@@ -8,18 +8,21 @@ import { menuTheme } from './components/menu/theme';
 import { stepperTheme } from './components/stepper/theme';
 
 const theme = extendTheme({
+  breakpoints: {
+    "3xl": "1638px",
+  },
   styles: {
     global: {
       "html, body": {
-        backgroundColor: "gray.50",
+        backgroundColor: "#ffffff",
         color: "gray.900",
       },
     },
   },
   colors,
   fonts: {
-    body: "sans-serif",
-    heading: "sans-serif",
+    body: "SNPro, sans-serif",
+    heading: "SNPro, sans-serif",
   },
   components: {
     Heading: headingTheme,
