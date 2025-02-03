@@ -10,8 +10,8 @@ export const AvatarCircle = ({ name }: AvatarCircleProps) => {
   return (
     <Avatar
       name={name}
-      w={"40px"}
-      h={"40px"}
+      w={"34px"}
+      h={"34px"}
       bg={colors.Blue[500]}
       color={"white"}
     >

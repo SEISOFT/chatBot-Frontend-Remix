@@ -28,12 +28,12 @@ export const WhatsAppConnectionCard = ({
       p={6}
       gap={4}
       borderRadius="2xl"
-      boxShadow="md"
+      boxShadow="base"
       w={"100%"}
       minH={"276px"}
       justifyContent="space-between"
       flexDir={{ base: "column", md: "row" }}
-      border={`2px solid ${colors.Gray[100]}`}
+      border={`1px solid ${colors.Gray[100]}`}
       borderBottom={"none"}
     >
       <Flex
@@ -41,10 +41,9 @@ export const WhatsAppConnectionCard = ({
         gap={3}
         w={"fit-content"}
         color={colors.Custom.textBlue}
-        pt={3}
       >
         <Text fontSize="lg" fontWeight={"black"} w={"fit-content"}>
-          Conecta tu WhatsApp con Sharky y deja que Sharky responda 24/7
+          Conecta tu WhatsApp con Sharky y deja que él responda 24/7
         </Text>
         <OrderedList fontSize="md" fontWeight={"medium"} w={"fit-content"}>
           <ListItem>Abre Whatsapp en tú télefono.</ListItem>
@@ -81,8 +80,8 @@ export const WhatsAppConnectionCard = ({
             bg={"white"}
             gap={4}
             flexDir={"column"}
-            boxShadow="md"
-            border={`2px solid ${colors.Gray[100]}`}
+            boxShadow="base"
+            border={`1px solid ${colors.Gray[100]}`}
             borderBottom={"none"}
           >
             <Spinner size="xl" />
@@ -95,10 +94,10 @@ export const WhatsAppConnectionCard = ({
             alignItems={"center"}
             justifyContent="center"
             borderRadius="2xl"
-            boxShadow="md"
+            boxShadow="base"
             bg={"white"}
             p={4}
-            border={`2px solid ${colors.Gray[100]}`}
+            border={`1px solid ${colors.Gray[100]}`}
             borderBottom={"none"}
           >
             <QRCodeCanvas
@@ -121,8 +120,8 @@ export const WhatsAppConnectionCard = ({
             bg={"white"}
             gap={4}
             flexDir={"column"}
-            boxShadow="md"
-            border={`2px solid ${colors.Gray[100]}`}
+            boxShadow="base"
+            border={`1px solid ${colors.Gray[100]}`}
             borderBottom={"none"}
           >
             <Text fontSize="sm" color="red.500" textAlign={"center"}>

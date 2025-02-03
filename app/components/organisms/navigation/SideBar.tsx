@@ -1,6 +1,5 @@
 import {
   Accordion,
-  calc,
   Flex,
   IconButton,
   useBreakpointValue,
@@ -18,10 +17,10 @@ import { SidebarItem } from "~/components/molecules/navigation/SidebarItem";
 import { colors } from "~/styles/colors";
 
 const sidebarItems = [
-  { label: "Inicio", icon: <TbHome2 fontSize={"25px"} />, path: "/dashboard" },
+  { label: "Inicio", icon: <TbHome2 fontSize={"20px"} />, path: "/dashboard" },
   {
     label: "Comunidad",
-    icon: <TbUsersGroup fontSize={"25px"} />,
+    icon: <TbUsersGroup fontSize={"20px"} />,
     subItems: ["Foros", "Eventos"],
     path: "/community",
   },
@@ -32,7 +31,7 @@ export const Sidebar = () => {
   const { isSidebarCollapsed, toggleSidebar } = useNavigation();
   const isMobile = useBreakpointValue({ base: true, lg: false });
   const getSidebarWidth = (): string => {
-    if (isSidebarCollapsed) return "70px";
+    if (isSidebarCollapsed) return "66px";
     if (isMobile) return "314px";
     return "248px";
   };
@@ -55,16 +54,15 @@ export const Sidebar = () => {
       transition="width 0.4s"
       bg="white"
       display={isMobile && isSidebarCollapsed ? "none" : "block"}
-      border={`2px solid ${colors.Gray[100]}`}
-      borderTop={{base:0, lg:`2px solid ${colors.Gray[100]}`}}
+      border={`1px solid ${colors.Gray[100]}`}
+      borderTop={{base:0, lg:`1px solid ${colors.Gray[100]}`}}
       borderRadius={{ base: 0, lg: "2xl" }}
     >
       <Flex
         flexDir={"column"}
-        gap={12}
+        gap={6}
         justifyContent={"start"}
-        overflow={"hidden"}
-        h={isMobile ? "100%" : calc("100% - 220px").toString()}
+      
       >
         {/* Sidebar Header */}
         {!isMobile && <SharkyBanner isCollapsed={isSidebarCollapsed} />}
@@ -75,7 +73,8 @@ export const Sidebar = () => {
           display={"flex"}
           flexDir={"column"}
           alignItems={isSidebarCollapsed ? "center" : "normal"}
-          width={isSidebarCollapsed ? "50px" : "auto"}
+          width={"auto"}
+          gap={1}
         >
           {sidebarItems.map((item) => (
             <SidebarItem
@@ -99,7 +98,7 @@ export const Sidebar = () => {
           bg={"#fff"}
           borderRadius={"50%"}
           position={"absolute"}
-          top={"56px"}
+          top={"40px"}
           right={"-16px"}
           w={8}
           h={8}

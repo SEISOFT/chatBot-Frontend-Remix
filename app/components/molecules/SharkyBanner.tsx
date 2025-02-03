@@ -10,12 +10,11 @@ export const SharkyBanner = ({ isCollapsed }: SharkyBannerProps) => {
   return (
     <Flex
       alignItems="center"
-      pl={isCollapsed ? "4px" : "0px"}
-      justifyContent={isCollapsed ? "normal" : "center"}
+      justifyContent={"center"}
       gap={4}
-      minH={"42px"}
+      minH={9}
     >
-      {isCollapsed && <SharkyProfile w={10} minW={10} />}
+      {isCollapsed && <SharkyProfile w={9} minW={9} />}
       {!isCollapsed && (
         <Heading
           as="h1"
@@ -24,7 +23,6 @@ export const SharkyBanner = ({ isCollapsed }: SharkyBannerProps) => {
           textAlign="center"
           color={colors.Blue[800]}
           letterSpacing={1}
-          pt={2}
           variant={"sharky"}
         >
           Sharky

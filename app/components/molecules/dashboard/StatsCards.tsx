@@ -48,13 +48,13 @@ export const StatsCards = ({
           h="130px"
           bg={"white"}
           borderRadius="2xl"
-          boxShadow="md"
+          boxShadow="base"
           flexDir="column"
           color={colors.Custom.textBlue}
           gap={4}
           alignItems="center"
           justifyContent="center"
-          border={`2px solid ${colors.Gray[100]}`}
+          border={`1px solid ${colors.Gray[100]}`}
           borderBottom={"none"}
         >
           <Text fontWeight="black">{stat.label}</Text>

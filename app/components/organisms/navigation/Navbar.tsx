@@ -4,7 +4,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Box,
   Divider,
   IconButton,
   useBreakpointValue,
@@ -62,15 +61,14 @@ export const Navbar = () => {
       top={{ base: 0, lg: 2 }}
       left={isMobile ? "0" : sidebarWidth} // Si es móvil, ocupa to do el ancho
       width={isMobile ? "100%" : `calc(100% - ${sidebarWidth} - 8px)`}
-      height={"60px"}
+      height={{ base: "60px", lg: "50px" }}
       zIndex={1000}
-      border={`2px solid ${colors.Gray[100]}`}
+      border={`1px solid ${colors.Gray[100]}`}
       borderRadius={{ base: "0", lg: "2xl" }}
       justifyContent={{ base: "space-between", lg: "flex-end" }}
       alignItems="center"
       py={2}
       px={3}
-      maxH="60px"
     >
       {isMobile && (
         <Flex gap={4}>
@@ -93,19 +91,28 @@ export const Navbar = () => {
         <MenuList>
           <AvatarBanner />
           <Divider />
-          <Box>
-            {navbarItems.map((item) => {
+          <Flex flexDir={"column"} gap={1}>
+            {navbarItems.map((item, index) => {
               const isActive =
                 item.path && location.pathname.startsWith(item.path);
+              const isLast = index === navbarItems.length - 1;
 
               return (
                 <MenuItem
                   key={item.label}
                   icon={item.icon}
-                  bg={isActive ? colors.Sky[100] : "white"}
-                  borderRadius={"xl"}
+                  borderRadius="xl"
+                  p={2}
+                  maxH={"36px"}
                   color={isActive ? colors.Blue[500] : colors.Slate[600]}
-                  fontWeight={"bold"}
+                  fontWeight="bold"
+                  bg={isActive ? colors.Sky[100] : "white"}
+                  mt={isLast ? 4 : 0}
+                  _hover={
+                    isLast
+                      ? { bg: "red.100" } // Ejemplo: hover distinto en el último item
+                      : { bg: colors.Sky[100] }
+                  }
                   onClick={() => {
                     if (item.action) {
                       item.action();
@@ -114,11 +121,11 @@ export const Navbar = () => {
                     }
                   }}
                 >
-                  <Text pt={1}>{item.label}</Text>
+                  <Text pt={1}    fontSize={{base: "14px", lg:"16px"}}>{item.label}</Text>
                 </MenuItem>
               );
             })}
-          </Box>
+          </Flex>
         </MenuList>
       </Menu>
     </Flex>

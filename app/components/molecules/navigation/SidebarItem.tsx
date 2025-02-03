@@ -44,6 +44,7 @@ export const SidebarItem = memo(
               bg={isActive ? colors.Sky[100] : "white"}
               borderRadius="xl"
               _hover={{ bg: colors.Slate[100] }}
+              maxH={"36px"}
             >
               <Flex align="center" justify="space-between" w="full">
                 <Flex align="center" gap={2}>
@@ -58,7 +59,7 @@ export const SidebarItem = memo(
                   </Box>
                   {!isCollapsed && (
                     <Text
-                      fontSize="14px"
+                      fontSize={{ base: "14px", lg: "16px" }}
                       h={"20px"}
                       fontWeight={"bold"}
                       color={isActive ? colors.Blue[500] : colors.Slate[600]}
@@ -70,7 +71,7 @@ export const SidebarItem = memo(
                     </Text>
                   )}
                 </Flex>
-                {!isCollapsed && subItems && <AccordionIcon />}
+                {!isCollapsed && subItems && <AccordionIcon mt={1} />}
               </Flex>
             </AccordionButton>
           </PopoverTrigger>
