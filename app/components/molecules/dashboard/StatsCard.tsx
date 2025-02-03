@@ -7,6 +7,8 @@ import {
   PointElement,
   LineElement,
   Tooltip,
+  Filler,
+  ScriptableContext,
 } from "chart.js";
 import { ReactNode, useMemo } from "react";
 import { colors } from "~/styles/colors";
@@ -16,7 +18,8 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
-  Tooltip
+  Tooltip,
+  Filler
 );
 
 interface StatsCardProps {
@@ -40,27 +43,54 @@ export const StatsCard = ({
   dataLabels,
   dataValues,
 }: StatsCardProps) => {
-  const chartData = useMemo(
-    () => ({
+  const chartData = useMemo(() => {
+    return {
       labels: dataLabels,
       datasets: [
         {
           data: dataValues,
           borderColor: trendColor,
           borderWidth: 2,
-          backgroundColor: "rgba(255, 0, 0, 0.3)", // semitransparente
-          fill: true, // true, 'start', 'end', etc
-          tension: 0.3,
+          // Lógica para rellenar
+          fill: {
+            target: "origin", // Rellena hasta el eje base (por defecto, y=0)
+          },
+          /**
+           * `backgroundColor` como función scriptable que retorna CanvasGradient
+           */
+          backgroundColor: (ctx: ScriptableContext<"line">) => {
+            const chart = ctx.chart;
+            const { ctx: canvas, chartArea } = chart;
+            // Si chartArea es undefined, significa que la dimensión del canvas aún no está disponible
+            if (!chartArea) {
+              // Retornamos un color de respaldo
+              return trendColor;
+            }
+
+            // Creas un gradiente lineal de bottom (chartArea.bottom) a top (chartArea.top)
+            const gradient = canvas.createLinearGradient(
+              0,
+              chartArea.bottom,
+              0,
+              chartArea.top
+            );
+
+            // Añadimos colorStop inferiores y superiores
+            gradient.addColorStop(0, `${trendColor}00`); // 00 -> transparencia al 100%
+            gradient.addColorStop(1, `${trendColor}AA`); // AA -> ~67% opacidad
+
+            return gradient;
+          },
+          tension: 0.1,
           pointRadius: 0,
           clip: false as const,
         },
       ],
-    }),
-    [dataLabels, dataValues, trendColor]
-  );
+    };
+  }, [dataLabels, dataValues, trendColor]);
 
-  const chartOptions = useMemo(
-    () => ({
+  const chartOptions = useMemo(() => {
+    return {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
@@ -69,18 +99,16 @@ export const StatsCard = ({
         },
         y: {
           display: false,
-          // Asegura que la línea esté por encima de 0, y define un max más alto que tu data
           beginAtZero: true,
           min: 0,
-          max: 100, // si tus datos rondan < 100. Ajusta según necesites
+          max: 100,
         },
       },
       plugins: {
         legend: { display: false },
       },
-    }),
-    []
-  );
+    };
+  }, []);
 
   return (
     <Flex
