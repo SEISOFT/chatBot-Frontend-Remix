@@ -10,6 +10,8 @@ import { WhatsAppConnectionCard } from "~/components/molecules/dashboard/WhatsAp
 import { StatsCards } from "~/components/molecules/dashboard/StatsCards";
 import { ModalBlurOverlay } from "~/components/atoms/profiling/ModalBlurOverlay";
 import { WelcomeAnimation } from "~/components/atoms/profiling/WelcomeAnimation";
+import { StatsCard } from "~/components/molecules/dashboard/StatsCard";
+import { TbArrowUpRight } from "react-icons/tb";
 
 export const Dashboard = () => {
   const { user, refetchUser } = useUser();
@@ -25,6 +27,8 @@ export const Dashboard = () => {
     { label: "Conversiones", value: 30 },
     { label: "Tickets Abiertos", value: 12 },
   ];
+  const dataLabels = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+  const dataValues = [30, 45, 28, 50, 60, 55, 70];
   useEffect(() => {
     if (qrCode) {
       setCountdown(QR_DURATION);
@@ -87,6 +91,18 @@ export const Dashboard = () => {
         <StatsCards
           statsData={statsData}
           isSidebarCollapsed={isSidebarCollapsed}
+        />
+      </Flex>
+      <Flex gap={4} w="full" justify="space-between" flexWrap="wrap">
+        <StatsCard
+          title="Ventas Semanales"
+          value="$12,500"
+          percentage="+12%"
+          color="green.500"
+          trendColor="#48BB78" // Verde
+          trendIcon={<TbArrowUpRight />}
+          dataLabels={dataLabels}
+          dataValues={dataValues}
         />
       </Flex>
       <Flex
@@ -189,10 +205,7 @@ export const Dashboard = () => {
 
       {/* Modal de Perfilamiento */}
       {isOpen && (
-        <ProfilingModal
-          isOpen={isOpen}
-          onClose={handleCompleteProfiling}
-        />
+        <ProfilingModal isOpen={isOpen} onClose={handleCompleteProfiling} />
       )}
       {/* Animación del Mensaje de Bienvenida */}
       {showWelcomeAnimation && <WelcomeAnimation />}

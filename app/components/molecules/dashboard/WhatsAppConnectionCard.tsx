@@ -27,14 +27,14 @@ export const WhatsAppConnectionCard = ({
       bg={"white"}
       p={6}
       gap={4}
-      borderRadius="2xl"
-      boxShadow="base"
       w={"100%"}
       minH={"276px"}
       justifyContent="space-between"
       flexDir={{ base: "column", md: "row" }}
       border={`1px solid ${colors.Gray[100]}`}
       borderBottom={"none"}
+      borderRadius="2xl"
+      boxShadow="base"
     >
       <Flex
         flexDir={{ base: "column", md: "column" }}
