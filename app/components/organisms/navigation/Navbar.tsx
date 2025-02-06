@@ -27,9 +27,9 @@ export const Navbar = () => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
   const { isSidebarCollapsed, toggleSidebar } = useNavigation();
   const getSidebarWidth = (): string => {
-    if (isSidebarCollapsed) return "86px";
+    if (isSidebarCollapsed) return "90px";
     if (isMobile) return "314px";
-    return "264px";
+    return "272px";
   };
   const sidebarWidth = getSidebarWidth();
   const navbarItems = [
@@ -58,10 +58,10 @@ export const Navbar = () => {
       bg={"white"}
       as="header"
       position="fixed"
-      top={{ base: 0, lg: 2 }}
+      top={{ base: 0, lg: 3 }}
       left={isMobile ? "0" : sidebarWidth} // Si es móvil, ocupa to do el ancho
-      width={isMobile ? "100%" : `calc(100% - ${sidebarWidth} - 8px)`}
-      height={{ base: "60px", lg: "50px" }}
+      width={isMobile ? "100%" : `calc(100% - ${sidebarWidth} - 12px)`}
+      height={{ base: "54px", lg: "54px" }}
       zIndex={1000}
       border={`1px solid ${colors.Gray[100]}`}
       borderRadius={{ base: "0", lg: "2xl" }}

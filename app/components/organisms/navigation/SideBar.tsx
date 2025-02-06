@@ -40,13 +40,13 @@ export const Sidebar = () => {
     <Flex
       as="nav"
       position="fixed"
-      top={{ base: "unset", lg: "2" }}
-      left={{ base: "0", lg: "2" }}
+      top={{ base: "unset", lg: "3" }}
+      left={{ base: "0", lg: "3" }}
       width={sidebarWidth}
       zIndex={999}
       boxShadow="sm"
       flexDir={"column"}
-      h={isMobile ? "calc(100vh - 60px)" : "calc(100vh - 16px)"}
+      h={isMobile ? "calc(100vh - 60px)" : "calc(100vh - 24px)"}
       px={isSidebarCollapsed ? 2 : 4}
       py={2}
       w={sidebarWidth}

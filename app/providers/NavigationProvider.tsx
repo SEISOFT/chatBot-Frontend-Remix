@@ -2,7 +2,7 @@ import { ReactNode, useState, useMemo } from "react";
 import { NavigationContext } from "~/contexts/NavigationContext";
 
 export const NavigationProvider = ({ children }: { children: ReactNode }) => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
 
   const toggleSidebar = () => setIsSidebarCollapsed((prev) => !prev);
   const contextValue = useMemo(

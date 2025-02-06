@@ -5,8 +5,10 @@ import {
   ListItem,
   Spinner,
   Button,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { QRCodeCanvas } from "qrcode.react";
+import { useNavigation } from "~/hooks/useNavigation";
 import { colors } from "~/styles/colors";
 
 interface WhatsAppConnectionCardProps {
@@ -22,28 +24,39 @@ export const WhatsAppConnectionCard = ({
   countdown,
   onRefresh,
 }: WhatsAppConnectionCardProps) => {
+  const isMobile = useBreakpointValue({ base: true, xl: false });
+  const { isSidebarCollapsed } = useNavigation();
   return (
     <Flex
       bg={"white"}
       p={6}
       gap={4}
-      w={"100%"}
-      minH={"276px"}
+      minW={{
+        base: "100%",
+        xl: isSidebarCollapsed ? "466px" : "100%",
+        "2xl": "466px",
+      }}
+      minH={{ base: "480px", md: "auto", lg: "280px", "2xl": "624px" }}
+      maxH={{ "2xl": "fit-content" }}
       justifyContent="space-between"
-      flexDir={{ base: "column", md: "row" }}
+      flexDir={{
+        base: "column",
+        md: "row",
+        lg: "row",
+        xl: isSidebarCollapsed ? "column" : "row",
+        "2xl": "column",
+      }}
       border={`1px solid ${colors.Gray[100]}`}
-      borderBottom={"none"}
       borderRadius="2xl"
-      boxShadow="base"
     >
       <Flex
-        flexDir={{ base: "column", md: "column" }}
+        flexDir={{ base: "column" }}
         gap={3}
         w={"fit-content"}
         color={colors.Custom.textBlue}
       >
         <Text fontSize="lg" fontWeight={"black"} w={"fit-content"}>
-          Conecta tu WhatsApp con Sharky y deja que él responda 24/7
+          ¡Conecta tu WhatsApp con Sharky!
         </Text>
         <OrderedList fontSize="md" fontWeight={"medium"} w={"fit-content"}>
           <ListItem>Abre Whatsapp en tú télefono.</ListItem>
@@ -71,8 +84,8 @@ export const WhatsAppConnectionCard = ({
       >
         {isLoading && (
           <Flex
-            w={"216px"}
-            h={"216px"}
+            w={{ base: "216px", "2xl": "300px" }}
+            h={{ base: "216px", "2xl": "300px" }}
             p={4}
             alignItems={"center"}
             justifyContent={"center"}
@@ -80,9 +93,7 @@ export const WhatsAppConnectionCard = ({
             bg={"white"}
             gap={4}
             flexDir={"column"}
-            boxShadow="base"
             border={`1px solid ${colors.Gray[100]}`}
-            borderBottom={"none"}
           >
             <Spinner size="xl" />
           </Flex>
@@ -94,15 +105,13 @@ export const WhatsAppConnectionCard = ({
             alignItems={"center"}
             justifyContent="center"
             borderRadius="2xl"
-            boxShadow="base"
             bg={"white"}
             p={4}
             border={`1px solid ${colors.Gray[100]}`}
-            borderBottom={"none"}
           >
             <QRCodeCanvas
               value={qrCode}
-              size={184}
+              size={isMobile ? 184 : isSidebarCollapsed ? 300 : 184}
               fgColor="#000000"
               bgColor="#ffffff"
             />
@@ -111,8 +120,8 @@ export const WhatsAppConnectionCard = ({
         {/* Si el QR existe pero ya caducó, mostramos solo el botón */}
         {qrCode && !isLoading && countdown <= 0 && (
           <Flex
-            w={"216px"}
-            h={"216px"}
+            w={{ base: "216px", "2xl": "300px" }}
+            h={{ base: "216px", "2xl": "300px" }}
             p={4}
             alignItems={"center"}
             justifyContent={"center"}
@@ -120,9 +129,7 @@ export const WhatsAppConnectionCard = ({
             bg={"white"}
             gap={4}
             flexDir={"column"}
-            boxShadow="base"
             border={`1px solid ${colors.Gray[100]}`}
-            borderBottom={"none"}
           >
             <Text fontSize="sm" color="red.500" textAlign={"center"}>
               Este código ha caducado.

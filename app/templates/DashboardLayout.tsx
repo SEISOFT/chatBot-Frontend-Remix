@@ -24,22 +24,18 @@ function Layout() {
   const { isSidebarCollapsed } = useNavigation();
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
-  // Ajusta el ancho del sidebar según estado
-  const sidebarWidth = isSidebarCollapsed ? "70px" : "248px";
-  // En móvil, podrías decidir colapsarlo u ocultarlo completamente
-  // o consultarlo con el hook, tu lógica.
-
-  // Altura del navbar en px
-  const navbarHeight = "60px";
+  const getSidebarWidth = (): string => {
+    if (isSidebarCollapsed) return "90px";
+    if (isMobile) return "314px";
+    return "272px";
+  };
+  const sidebarWidth = getSidebarWidth();
+  const navbarHeight = "54px";
 
   return (
     <Box>
-      <Box px={2}>
-        <Sidebar />
-      </Box>
-      <Box px={2}>
-        <Navbar />
-      </Box>
+      <Sidebar />
+      <Navbar />
 
       {/* Contenido principal que se desplaza en scroll */}
       <Box
@@ -47,7 +43,6 @@ function Layout() {
         position="relative"
         ml={isMobile ? 0 : sidebarWidth}
         mt={navbarHeight}
-        p={4}
         minHeight="calc(100vh - 60px)"
       >
         <Outlet />
