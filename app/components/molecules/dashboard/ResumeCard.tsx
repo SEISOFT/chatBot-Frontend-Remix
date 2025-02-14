@@ -2,12 +2,13 @@ import { Flex, Text } from "@chakra-ui/react";
 import { TbPlugConnected } from "react-icons/tb";
 import { useUser } from "~/hooks/useUser";
 import { colors } from "~/styles/colors";
+import bannerSharky1 from "~/assets/images/bannerSharky1.jpg";
 
 export const ResumeCard = () => {
   const { user } = useUser();
   return (
     <Flex
-      bgImage={"app/assets/images/bannerSharky1.jpg"}
+      bgImage={bannerSharky1}
       bgSize={"cover"}
       bgPosition={"center"}
       flexDir={"column"}
