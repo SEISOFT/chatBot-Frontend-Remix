@@ -118,7 +118,7 @@ export const StatsCard = ({
       maxH="150px"
       justifyContent="space-between"
       border={`1px solid ${colors.Gray[100]}`}
-      borderRadius="2xl"
+      borderRadius="xl"
       bg="white"
       flexDir={"column"}
     >

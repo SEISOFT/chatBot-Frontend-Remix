@@ -43,7 +43,7 @@ export const WhatsAppConnectionCard = ({
         "2xl": "row",
       }}
       border={`1px solid ${colors.Gray[100]}`}
-      borderRadius="2xl"
+      borderRadius="xl"
     >
       <Flex
         flexDir={{ base: "column" }}

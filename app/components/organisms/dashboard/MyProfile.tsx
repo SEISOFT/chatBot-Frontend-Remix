@@ -79,122 +79,137 @@ export const MyProfile = () => {
   };
 
   return (
-    <Box flex="1" overflowX="auto" py={10} px={6} position="relative">
-      <Heading as="h1" size="xl" mb={4}>
-        Mi Perfil
-      </Heading>
+    <Flex
+      flexDir={"column"}
+      transition="width 0.4s"
+      py={6}
+      gap={3}
+      w={"100%"}
+      pl={{ base: 4, lg: 0 }}
+      mx={"auto"}
+      pr={{ base: 4, lg: 3, "2xl": 3 }}
+    >
+      <Box bg="white" p={4} borderRadius="xl" >
+        <Heading as="h1" size="xl" mb={4}>
+          Mi Perfil
+        </Heading>
 
-      <Box as="form" onSubmit={handleSubmit}>
-        <Flex gap={4} flexWrap="wrap" align="stretch">
-          {/* USERNAME (editable) */}
-          <FormControl maxW={{ base: "full", md: "370px" }}>
-            <FormLabel>Nombre de usuario</FormLabel>
-            <Input
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-            />
-          </FormControl>
+        <Box as="form" onSubmit={handleSubmit}>
+          <Flex gap={4} flexWrap="wrap" align="stretch">
+            {/* USERNAME (editable) */}
+            <FormControl maxW={{ base: "full", md: "370px" }}>
+              <FormLabel>Nombre de usuario</FormLabel>
+              <Input
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+              />
+            </FormControl>
 
-          {/* ADDRESS (editable) */}
-          <FormControl maxW={{ base: "full", md: "370px" }}>
-            <FormLabel>Dirección</FormLabel>
-            <Input
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-            />
-          </FormControl>
+            {/* ADDRESS (editable) */}
+            <FormControl maxW={{ base: "full", md: "370px" }}>
+              <FormLabel>Dirección</FormLabel>
+              <Input
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+              />
+            </FormControl>
 
-          {/* CITY (editable) */}
-          <FormControl maxW={{ base: "full", md: "370px" }}>
-            <FormLabel>Ciudad</FormLabel>
-            <Input name="city" value={formData.city} onChange={handleChange} />
-          </FormControl>
+            {/* CITY (editable) */}
+            <FormControl maxW={{ base: "full", md: "370px" }}>
+              <FormLabel>Ciudad</FormLabel>
+              <Input
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+              />
+            </FormControl>
 
-          {/* PROVINCE (editable) */}
-          <FormControl maxW={{ base: "full", md: "370px" }}>
-            <FormLabel>Provincia</FormLabel>
-            <Input
-              name="province"
-              value={formData.province}
-              onChange={handleChange}
-            />
-          </FormControl>
+            {/* PROVINCE (editable) */}
+            <FormControl maxW={{ base: "full", md: "370px" }}>
+              <FormLabel>Provincia</FormLabel>
+              <Input
+                name="province"
+                value={formData.province}
+                onChange={handleChange}
+              />
+            </FormControl>
 
-          {/* COUNTRY (editable) */}
-          <FormControl maxW={{ base: "full", md: "370px" }}>
-            <FormLabel>País</FormLabel>
-            <Input
-              name="country"
-              value={formData.country}
-              onChange={handleChange}
-            />
-          </FormControl>
+            {/* COUNTRY (editable) */}
+            <FormControl maxW={{ base: "full", md: "370px" }}>
+              <FormLabel>País</FormLabel>
+              <Input
+                name="country"
+                value={formData.country}
+                onChange={handleChange}
+              />
+            </FormControl>
 
-          {/* EMAIL (read only) */}
-          <FormControl maxW={{ base: "full", md: "370px" }}>
-            <FormLabel>Email</FormLabel>
-            <Input
-              disabled
-              name="email"
-              value={formData.email}
-              isReadOnly
-              onChange={handleChange}
-            />
-          </FormControl>
+            {/* EMAIL (read only) */}
+            <FormControl maxW={{ base: "full", md: "370px" }}>
+              <FormLabel>Email</FormLabel>
+              <Input
+                disabled
+                name="email"
+                value={formData.email}
+                isReadOnly
+                onChange={handleChange}
+              />
+            </FormControl>
 
-          {/* PHONE (read only) */}
-          <FormControl maxW={{ base: "full", md: "370px" }}>
-            <FormLabel>Teléfono</FormLabel>
-            <Input
-              disabled
-              name="phone"
-              value={formData.phone}
-              isReadOnly
-              onChange={handleChange}
-            />
-          </FormControl>
+            {/* PHONE (read only) */}
+            <FormControl maxW={{ base: "full", md: "370px" }}>
+              <FormLabel>Teléfono</FormLabel>
+              <Input
+                disabled
+                name="phone"
+                value={formData.phone}
+                isReadOnly
+                onChange={handleChange}
+              />
+            </FormControl>
 
-          {/* TYPE_OF_DOCUMENT (read only) */}
-          <FormControl maxW={{ base: "full", md: "370px" }}>
-            <FormLabel>Tipo de documento</FormLabel>
-            <Input
-              disabled
-              name="type_of_document"
-              value={formData.type_of_document}
-              isReadOnly
-              onChange={handleChange}
-            />
-          </FormControl>
+            {/* TYPE_OF_DOCUMENT (read only) */}
+            <FormControl maxW={{ base: "full", md: "370px" }}>
+              <FormLabel>Tipo de documento</FormLabel>
+              <Input
+                disabled
+                name="type_of_document"
+                value={formData.type_of_document}
+                isReadOnly
+                onChange={handleChange}
+              />
+            </FormControl>
 
-          {/* DOCUMENT_NUMBER (read only) */}
-          <FormControl maxW={{ base: "full", md: "370px" }}>
-            <FormLabel>Número de documento</FormLabel>
-            <Input
-              disabled
-              name="document_number"
-              value={formData.document_number}
-              isReadOnly
-              onChange={handleChange}
-            />
-          </FormControl>
-        </Flex>
+            {/* DOCUMENT_NUMBER (read only) */}
+            <FormControl maxW={{ base: "full", md: "370px" }}>
+              <FormLabel>Número de documento</FormLabel>
+              <Input
+                disabled
+                name="document_number"
+                value={formData.document_number}
+                isReadOnly
+                onChange={handleChange}
+              />
+            </FormControl>
+          </Flex>
 
-        {/* Botón de guardar */}
-        <Button
-          type="submit"
-          variant={"primary"}
-          fontSize={"14px"}
-          mt={4}
-          py={2}
-          px={4}
-          isDisabled={!hasChanges}
-          isLoading={isLoading}
-        >
-          Guardar
-        </Button>
+          {/* Botón de guardar */}
+          <Button
+            type="submit"
+            variant={"primary"}
+            fontSize={"14px"}
+            mt={4}
+            py={2}
+            px={4}
+            isDisabled={!hasChanges}
+            isLoading={isLoading}
+          >
+            Guardar
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    </Flex>
   );
 };
