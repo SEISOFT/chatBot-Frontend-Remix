@@ -39,7 +39,6 @@ interface StatsCardProps {
  * @returns Arreglo de puntos en forma { x, y } para dibujar la línea
  */
 
-
 export const StatsCard = ({
   title,
   value,
@@ -113,7 +112,8 @@ export const StatsCard = ({
     <Flex
       p={4}
       width="100%"
-      maxW={{ base: "300px", sm:"330px", xl: "330px" }}
+      minW={"300px"}
+      w={{ base: "300px", sm: "300px", xl: "330px" }}
       minH="154px"
       maxH="197px"
       justifyContent="space-between"
@@ -137,7 +137,7 @@ export const StatsCard = ({
             {value}
           </Text>
         </Flex>
-        <Flex flexDir={"column"}  color={color} alignItems={"end"}>
+        <Flex flexDir={"column"} color={color} alignItems={"end"}>
           <Tooltip
             label="Estos datos son el resultado de la comparacion entre la semana anterior y la actual."
             placement="top-start"

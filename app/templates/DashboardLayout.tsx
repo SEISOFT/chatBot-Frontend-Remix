@@ -25,25 +25,28 @@ function Layout() {
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
   const getSidebarWidth = (): string => {
-    if (isSidebarCollapsed) return "90px";
+    if (isSidebarCollapsed) return "74px";
     if (isMobile) return "314px";
-    return "272px";
+    return "256px";
   };
+
   const sidebarWidth = getSidebarWidth();
-  const navbarHeight = "54px";
+  const navbarHeight = "50px";
 
   return (
-    <Box>
+    <Box bgImage={"app/assets/images/background-body-admin.webp"}>
       <Sidebar />
       <Navbar />
 
       {/* Contenido principal que se desplaza en scroll */}
       <Box
+        transition="width 0.4s"
         as="main"
         position="relative"
         ml={isMobile ? 0 : sidebarWidth}
-        mt={navbarHeight}
-        minHeight="calc(100vh - 60px)"
+        pt={navbarHeight}
+        minHeight="calc(100vh )"
+        overflow="hidden"
       >
         <Outlet />
       </Box>

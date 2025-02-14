@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import {
   Accordion,
   Flex,
@@ -16,100 +17,148 @@ import { useNavigation } from "~/hooks/useNavigation";
 import { SidebarItem } from "~/components/molecules/navigation/SidebarItem";
 import { colors } from "~/styles/colors";
 
-const sidebarItems = [
-  { label: "Inicio", icon: <TbHome2 fontSize={"20px"} />, path: "/dashboard" },
+//
+// 2.1. Definición del tipo para los items del Sidebar
+//
+interface SidebarItemConfig {
+  label: string;
+  icon: React.ReactElement;
+  path: string;
+  subItems?: string[];
+}
+
+//
+// 2.2. Configuración estática de los items del Sidebar
+//
+const SIDEBAR_ITEMS: SidebarItemConfig[] = [
+  { label: "Inicio", icon: <TbHome2 fontSize="20px" />, path: "/dashboard" },
   {
     label: "Comunidad",
-    icon: <TbUsersGroup fontSize={"20px"} />,
+    icon: <TbUsersGroup fontSize="20px" />,
     subItems: ["Foros", "Eventos"],
     path: "/community",
   },
 ];
 
-export const Sidebar = () => {
+//
+// 2.3. Componente Sidebar
+//
+export const Sidebar: React.FC = () => {
   const location = useLocation();
-  const { isSidebarCollapsed, toggleSidebar } = useNavigation();
+  const {
+    isSidebarCollapsed,
+    toggleSidebar,
+    isHovered,
+    handleSidebarMouseEnter,
+    handleSidebarMouseLeave,
+  } = useNavigation();
   const isMobile = useBreakpointValue({ base: true, lg: false });
-  const getSidebarWidth = (): string => {
-    if (isSidebarCollapsed) return "66px";
-    if (isMobile) return "314px";
-    return "248px";
-  };
-  const sidebarWidth = getSidebarWidth();
+
+  // El sidebar se considera “realmente colapsado” cuando:
+  //  - Está colapsado globalmente
+  //  - No se está haciendo hover
+  //  - Y la vista no es mobile
+  const isCurrentlyCollapsed = useMemo(
+    () => isSidebarCollapsed && !isHovered && !isMobile,
+    [isSidebarCollapsed, isHovered, isMobile]
+  );
+
+  // Dimensiones según la vista
+  const expandedWidth = useMemo(
+    () => (isMobile ? "314px" : "232px"),
+    [isMobile]
+  );
+  const collapsedWidth = "50px";
+
+  // Cálculo del ancho y padding del sidebar
+  const sidebarWidth = useMemo(() => {
+    if (isSidebarCollapsed && !isMobile) {
+      return isHovered ? expandedWidth : collapsedWidth;
+    }
+    return expandedWidth;
+  }, [isSidebarCollapsed, isMobile, isHovered, expandedWidth]);
+
+  const sidebarPaddingX = useMemo(() => {
+    if (isSidebarCollapsed && !isMobile) {
+      return isHovered ? 2 : 0;
+    }
+    return 2;
+  }, [isSidebarCollapsed, isMobile, isHovered]);
+
   return (
     <Flex
       as="nav"
       position="fixed"
       top={{ base: "unset", lg: "3" }}
       left={{ base: "0", lg: "3" }}
-      width={sidebarWidth}
+      w={sidebarWidth}
       zIndex={999}
       boxShadow="sm"
-      flexDir={"column"}
+      flexDir="column"
       h={isMobile ? "calc(100vh - 60px)" : "calc(100vh - 24px)"}
-      px={isSidebarCollapsed ? 2 : 4}
+      px={sidebarPaddingX}
       py={2}
-      w={sidebarWidth}
-      maxW={"314px"}
-      transition="width 0.4s"
+      transition="width 0.4s, padding 0.4s"
       bg="white"
       display={isMobile && isSidebarCollapsed ? "none" : "block"}
       border={`1px solid ${colors.Gray[100]}`}
-      borderTop={{base:0, lg:`1px solid ${colors.Gray[100]}`}}
-      borderRadius={{ base: 0, lg: "2xl" }}
+      borderTop={{ base: 0, lg: `1px solid ${colors.Gray[100]}` }}
+      borderRadius={{ base: 0, lg: "xl" }}
+      // Eventos para activar/desactivar el efecto hover (solo en desktop)
+      onMouseEnter={() => {
+        if (isSidebarCollapsed && !isMobile) {
+          handleSidebarMouseEnter();
+        }
+      }}
+      onMouseLeave={() => {
+        if (isSidebarCollapsed && !isMobile) {
+          handleSidebarMouseLeave();
+        }
+      }}
     >
-      <Flex
-        flexDir={"column"}
-        gap={6}
-        justifyContent={"start"}
-      
-      >
+      <Flex flexDir="column" gap={6} justifyContent="start" w="full">
         {/* Sidebar Header */}
-        {!isMobile && <SharkyBanner isCollapsed={isSidebarCollapsed} />}
+        {!isMobile && <SharkyBanner isCollapsed={isCurrentlyCollapsed} />}
 
         {/* Sidebar Items */}
         <Accordion
           allowToggle
-          display={"flex"}
-          flexDir={"column"}
-          alignItems={isSidebarCollapsed ? "center" : "normal"}
-          width={"auto"}
+          display="flex"
+          flexDir="column"
+          alignItems={isCurrentlyCollapsed ? "center" : "flex-start"}
+          width="100%"
           gap={1}
         >
-          {sidebarItems.map((item) => (
+          {SIDEBAR_ITEMS.map((item) => (
             <SidebarItem
-              path={item.path}
               key={item.label}
+              path={item.path}
               label={item.label}
               icon={item.icon}
               subItems={item.subItems}
-              isCollapsed={isSidebarCollapsed}
+              isCollapsed={isCurrentlyCollapsed}
               isActive={location.pathname === item.path}
             />
           ))}
         </Accordion>
       </Flex>
 
-      {/* Toggle Button */}
+      {/* Botón para togglear el sidebar (solo en desktop) */}
       {!isMobile && (
         <IconButton
           aria-label="Toggle Sidebar"
           onClick={toggleSidebar}
-          bg={"#fff"}
-          borderRadius={"50%"}
-          position={"absolute"}
-          top={"40px"}
-          right={"-16px"}
-          w={8}
-          h={8}
+          bg="#fff"
+          borderRadius="50%"
+          position="absolute"
+          top="44px"
+          right="-12px"
+          w={6}
+          h={6}
           _hover={{ bg: "auto" }}
-          _active={{
-            bg: "neutral.100",
-            boxShadow: "-1px -1px 10px 0px rgba(100, 100, 100, 0.16)",
-          }}
           boxShadow="-1px -1px 10px 0px rgba(100, 100, 100, 0.16)"
         >
-          {isSidebarCollapsed ? <TbChevronRight /> : <TbChevronLeft />}
+          {isCurrentlyCollapsed ? <TbChevronRight /> : <TbChevronLeft />}
         </IconButton>
       )}
     </Flex>

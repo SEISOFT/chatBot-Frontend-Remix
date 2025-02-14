@@ -15,6 +15,7 @@ import {
 import { colors } from "~/styles/colors";
 import { SubItemList } from "../../molecules/navigation/SubItemList";
 import { useNavigate } from "react-router";
+import { useNavigation } from "~/hooks/useNavigation";
 
 interface SidebarItemProps {
   label: string;
@@ -35,8 +36,15 @@ export const SidebarItem = memo(
     isActive,
   }: SidebarItemProps) => {
     const navigate = useNavigate();
+    const { isHovered, isSidebarCollapsed } = useNavigation();
+
+    const getWidth = () => {
+      if (isHovered) return "full";
+      return isSidebarCollapsed ? "auto" : "full";
+    };
+
     return (
-      <AccordionItem border="none">
+      <AccordionItem border="none" w={getWidth()}>
         <Popover placement="right-start" trigger="hover">
           <PopoverTrigger>
             <AccordionButton
