@@ -8,7 +8,7 @@ import { WhatsAppConnectionCard } from "~/components/molecules/dashboard/WhatsAp
 import { ModalBlurOverlay } from "~/components/atoms/profiling/ModalBlurOverlay";
 import { WelcomeAnimation } from "~/components/atoms/profiling/WelcomeAnimation";
 import { StatsCard } from "~/components/molecules/dashboard/StatsCard";
-import { TbArrowUpRight } from "react-icons/tb";
+import { TbArrowDownRight, TbArrowRight, TbArrowUpRight } from "react-icons/tb";
 import { ResumeCard } from "~/components/molecules/dashboard/ResumeCard";
 import MarqueeSwiper from "~/components/molecules/dashboard/Marquee";
 
@@ -67,8 +67,8 @@ export const Dashboard = () => {
           title="Ventas"
           value="$120,5M"
           percentage="12%"
-          color="green.500"
-          trendColor="#48BB78"
+          color="#4ade80"
+          trendColor="#4ade80"
           trendIcon={<TbArrowUpRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
@@ -77,19 +77,19 @@ export const Dashboard = () => {
           title="Chats"
           value="420B"
           percentage="8%"
-          color="blue.500"
-          trendColor="#4299E1"
-          trendIcon={<TbArrowUpRight fontSize="18px" />}
+          color="#de4a4a"
+          trendColor="#de4a4a"
+          trendIcon={<TbArrowDownRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
         />
         <StatsCard
           title="Conversiones"
           value="30%"
-          percentage="5%"
-          color="purple.500"
-          trendColor="#9F7AEA"
-          trendIcon={<TbArrowUpRight fontSize="18px" />}
+          percentage="0%"
+          color="#F5A524"
+          trendColor="#F5A524"
+          trendIcon={<TbArrowRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
         />
@@ -97,8 +97,8 @@ export const Dashboard = () => {
           title="Ventas"
           value="$120,5M"
           percentage="12%"
-          color="green.500"
-          trendColor="#48BB78"
+          color="#4ade80"
+          trendColor="#4ade80"
           trendIcon={<TbArrowUpRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
@@ -107,19 +107,19 @@ export const Dashboard = () => {
           title="Chats"
           value="420B"
           percentage="8%"
-          color="blue.500"
-          trendColor="#4299E1"
-          trendIcon={<TbArrowUpRight fontSize="18px" />}
+          color="#de4a4a"
+          trendColor="#de4a4a"
+          trendIcon={<TbArrowDownRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
         />
         <StatsCard
           title="Conversiones"
           value="30%"
-          percentage="5%"
-          color="purple.500"
-          trendColor="#9F7AEA"
-          trendIcon={<TbArrowUpRight fontSize="18px" />}
+          percentage="0%"
+          color="#F5A524"
+          trendColor="#F5A524"
+          trendIcon={<TbArrowRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
         />
@@ -127,8 +127,8 @@ export const Dashboard = () => {
           title="Ventas"
           value="$120,5M"
           percentage="12%"
-          color="green.500"
-          trendColor="#48BB78"
+          color="#4ade80"
+          trendColor="#4ade80"
           trendIcon={<TbArrowUpRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
@@ -137,19 +137,19 @@ export const Dashboard = () => {
           title="Chats"
           value="420B"
           percentage="8%"
-          color="blue.500"
-          trendColor="#4299E1"
-          trendIcon={<TbArrowUpRight fontSize="18px" />}
+          color="#de4a4a"
+          trendColor="#de4a4a"
+          trendIcon={<TbArrowDownRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
         />
         <StatsCard
           title="Conversiones"
           value="30%"
-          percentage="5%"
-          color="purple.500"
-          trendColor="#9F7AEA"
-          trendIcon={<TbArrowUpRight fontSize="18px" />}
+          percentage="0%"
+          color="#F5A524"
+          trendColor="#F5A524"
+          trendIcon={<TbArrowRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
         />
