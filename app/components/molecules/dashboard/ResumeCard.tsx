@@ -15,7 +15,6 @@ export const ResumeCard = () => {
       gap={4}
       p={4}
       borderRadius={"xl"}
-      color={colors.Custom.textBlue}
       w={"100%"}
       minW={{
         base: "100%",
@@ -23,7 +22,12 @@ export const ResumeCard = () => {
       minH={"222px"}
     >
       <Flex flexDir={"column"} alignItems={"start"} gap={4}>
-        <Text fontSize="lg" fontWeight={"black"} w={"fit-content"}>
+        <Text
+          fontSize="lg"
+          fontWeight={"black"}
+          w={"fit-content"}
+          color={colors.Custom.textBlue}
+        >
           ¡Bienvenido, a SHARKY!
         </Text>
         <Text fontSize={"18px"} fontWeight={"bold"} textAlign={"center"}>
@@ -33,7 +37,6 @@ export const ResumeCard = () => {
 
       <Text
         fontSize="md"
-        color={colors.Custom.textBlue}
         textAlign={"start"}
         display={"flex"}
         gap={2}

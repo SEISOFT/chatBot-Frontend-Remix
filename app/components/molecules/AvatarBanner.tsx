@@ -19,10 +19,10 @@ export const AvatarBanner = () => {
         </AvatarBadge>
       </Avatar>
       <Flex flexDir={"column"}>
-        <Text color={colors.Slate[600]} fontWeight={"bold"}>
+        <Text color={colors.Slate[800]} fontWeight={"bold"}>
           {user?.username}
         </Text>
-        <Text color={colors.Slate[400]}>{user?.email}</Text>
+        <Text color={colors.Slate[600]}>{user?.email}</Text>
       </Flex>
     </Flex>
   );

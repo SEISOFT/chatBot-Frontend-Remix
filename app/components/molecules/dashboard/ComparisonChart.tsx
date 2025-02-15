@@ -118,7 +118,6 @@ export const ComparisonChart = () => {
     },
     scales: {
       x: {
-        ticks: { color: colors.Custom.textBlue },
         grid: {
           drawOnChartArea: false, // only want the grid lines for one axis to show up
         },
@@ -126,7 +125,6 @@ export const ComparisonChart = () => {
       y: {
         beginAtZero: true,
         max: 100,
-        ticks: { color: colors.Custom.textBlue },
         grid: {
           drawOnChartArea: true, // only want the grid lines for one axis to show up/*
         },

@@ -58,7 +58,7 @@ export const SidebarItem = memo(
                 <Flex align="center" gap={2}>
                   <Box
                     fontSize={"20px"}
-                    color={isActive ? colors.Blue[500] : colors.Slate[600]}
+                    color={isActive ? colors.Blue[500] : colors.Slate[800]}
                     onClick={() => {
                       navigate(path);
                     }}
@@ -70,7 +70,7 @@ export const SidebarItem = memo(
                       fontSize={{ base: "14px", lg: "16px" }}
                       h={"20px"}
                       fontWeight={"bold"}
-                      color={isActive ? colors.Blue[500] : colors.Slate[600]}
+                      color={isActive ? colors.Blue[500] : colors.Slate[800]}
                       onClick={() => {
                         navigate(path);
                       }}

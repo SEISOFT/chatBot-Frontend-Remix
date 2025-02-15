@@ -137,10 +137,11 @@ export const StatsCard = ({
             {value}
           </Text>
         </Flex>
-        <Flex flexDir={"column"} color={color} alignItems={"end"}>
+        <Flex flexDir={"column"} alignItems={"end"}>
           <Tooltip
             label="Estos datos son el resultado de la comparacion entre la semana anterior y la actual."
             placement="top-start"
+            borderRadius={"lg"}
           >
             <Button
               w={"fit-content"}
@@ -149,10 +150,10 @@ export const StatsCard = ({
               bg={"transparent"}
               _hover={{ bg: "transparent" }}
             >
-              <TbInfoCircle fontSize={"20px"} color={color} />
+              <TbInfoCircle fontSize={"20px"} />
             </Button>
           </Tooltip>
-          <Flex w={"fit-content"}>
+          <Flex w={"fit-content"} color={color}>
             {trendIcon}
             <Text fontSize={"sm"} fontWeight={"bold"}>
               {percentage}vs

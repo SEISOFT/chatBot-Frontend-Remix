@@ -1,5 +1,6 @@
 import { Box, Flex, Text, IconButton } from "@chakra-ui/react";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { colors } from "~/styles/colors";
 
 export const ReferralTrackingCard = () => {
   return (
@@ -14,7 +15,7 @@ export const ReferralTrackingCard = () => {
     >
       {/* Encabezado */}
       <Flex justify="space-between" align="center" mb={4}>
-        <Text fontSize="lg" fontWeight="bold">
+        <Text fontSize="lg" fontWeight="black" color={colors.Custom.textBlue}>
           Referral Tracking
         </Text>
         <IconButton

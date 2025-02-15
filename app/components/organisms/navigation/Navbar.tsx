@@ -137,7 +137,7 @@ export const Navbar: React.FC = () => {
                   borderRadius="xl"
                   p={2}
                   maxH="36px"
-                  color={isActive ? colors.Blue[500] : colors.Slate[600]}
+                  color={isActive ? colors.Blue[500] : colors.Slate[800]}
                   fontWeight="bold"
                   bg={isActive ? colors.Sky[100] : "white"}
                   mt={isLast ? 4 : 0}

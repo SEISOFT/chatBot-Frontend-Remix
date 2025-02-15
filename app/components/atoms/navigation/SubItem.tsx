@@ -16,7 +16,7 @@ export const SubItem = memo(({ label, isCollapsed, onClick }: SubItemProps) => {
       borderRadius="xl"
       fontSize="sm"
       maxH={"36px"}
-      color={colors.Slate[600]}
+      color={colors.Slate[800]}
       _hover={{
         color: colors.Blue[500],
         cursor: "pointer",

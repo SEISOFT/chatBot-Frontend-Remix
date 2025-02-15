@@ -50,9 +50,8 @@ export const WhatsAppConnectionCard = ({
         flexDir={{ base: "column" }}
         gap={3}
         w={"fit-content"}
-        color={colors.Custom.textBlue}
       >
-        <Text fontSize="lg" fontWeight={"black"} w={"fit-content"}>
+        <Text fontSize="lg" fontWeight={"black"} w={"fit-content"}   color={colors.Custom.textBlue}>
           ¡Conecta tu WhatsApp con Sharky!
         </Text>
         <OrderedList fontSize="md" fontWeight={"medium"} w={"fit-content"}>

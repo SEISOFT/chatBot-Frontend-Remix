@@ -68,8 +68,8 @@ export const Dashboard = () => {
           title="Ventas"
           value="$120,5M"
           percentage="12%"
-          color="#4ade80"
-          trendColor="#4ade80"
+          color="#05CD99"
+          trendColor="#05CD99"
           trendIcon={<TbArrowUpRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
@@ -78,8 +78,8 @@ export const Dashboard = () => {
           title="Chats"
           value="420B"
           percentage="8%"
-          color="#de4a4a"
-          trendColor="#de4a4a"
+          color="#cd0505"
+          trendColor="#cd0505"
           trendIcon={<TbArrowDownRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
@@ -98,8 +98,8 @@ export const Dashboard = () => {
           title="Ventas"
           value="$120,5M"
           percentage="12%"
-          color="#4ade80"
-          trendColor="#4ade80"
+          color="#05CD99"
+          trendColor="#05CD99"
           trendIcon={<TbArrowUpRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
@@ -108,8 +108,8 @@ export const Dashboard = () => {
           title="Chats"
           value="420B"
           percentage="8%"
-          color="#de4a4a"
-          trendColor="#de4a4a"
+          color="#cd0505"
+          trendColor="#cd0505"
           trendIcon={<TbArrowDownRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
@@ -128,8 +128,8 @@ export const Dashboard = () => {
           title="Ventas"
           value="$120,5M"
           percentage="12%"
-          color="#4ade80"
-          trendColor="#4ade80"
+          color="#05CD99"
+          trendColor="#05CD99"
           trendIcon={<TbArrowUpRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
@@ -138,8 +138,8 @@ export const Dashboard = () => {
           title="Chats"
           value="420B"
           percentage="8%"
-          color="#de4a4a"
-          trendColor="#de4a4a"
+          color="#cd0505"
+          trendColor="#cd0505"
           trendIcon={<TbArrowDownRight fontSize="18px" />}
           dataLabels={dataLabels}
           dataValues={dataValues}
