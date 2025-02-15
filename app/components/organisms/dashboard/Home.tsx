@@ -1,4 +1,4 @@
-import { Flex, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, useDisclosure } from "@chakra-ui/react";
 import { useQRCode } from "~/hooks/useQRCode";
 import { useUser } from "~/hooks/useUser";
 import { ProfilingModal } from "~/components/molecules/profiling/ProfilingModal";
@@ -11,7 +11,8 @@ import { StatsCard } from "~/components/molecules/dashboard/StatsCard";
 import { TbArrowDownRight, TbArrowRight, TbArrowUpRight } from "react-icons/tb";
 import { ResumeCard } from "~/components/molecules/dashboard/ResumeCard";
 import MarqueeSwiper from "~/components/molecules/dashboard/Marquee";
-
+import { ComparisonChart } from "~/components/molecules/dashboard/ComparisonChart";
+import { ReferralTrackingCard } from "~/components/molecules/dashboard/ReferralTrackingCard";
 export const Dashboard = () => {
   const { user, refetchUser } = useUser();
   const { qrCode, isLoading, refetch } = useQRCode();
@@ -154,7 +155,11 @@ export const Dashboard = () => {
           dataValues={dataValues}
         />
       </MarqueeSwiper>
-      <Flex flexDir={{ base: "column", xl: "row" }} gap={3} pr={{ base: 4, lg: 3, "2xl": 3 }}>
+      <Flex
+        flexDir={{ base: "column", xl: "row" }}
+        gap={3}
+        pr={{ base: 4, lg: 3, "2xl": 3 }}
+      >
         <Flex w={"100%"}>
           <ResumeCard />
         </Flex>
@@ -167,7 +172,19 @@ export const Dashboard = () => {
           />
         </Flex>
       </Flex>
-      <Flex pr={{ base: 4, lg: 3, "2xl": 0 }}></Flex>
+      <Flex
+        pr={{ base: 4, lg: 3, "2xl": 3 }}
+        gap={3}
+        flexDir={{ base: "column", lg: "row" }}
+        wrap="wrap"
+      >
+        <Box w={{ base: "100%", lg: "calc(70% - 0.375rem)" }}>
+          <ComparisonChart />
+        </Box>
+        <Box w={{ base: "100%", lg: "calc(30% - 0.375rem)" }}>
+          <ReferralTrackingCard />
+        </Box>
+      </Flex>
 
       {/* Fondo desenfocado siempre activo */}
       {(isOpen || showWelcomeAnimation) && <ModalBlurOverlay />}

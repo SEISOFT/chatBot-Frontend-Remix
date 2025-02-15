@@ -9,6 +9,7 @@ import {
 import { QRCodeCanvas } from "qrcode.react";
 import { useNavigation } from "~/hooks/useNavigation";
 import { colors } from "~/styles/colors";
+import SharkyProfile from "~/assets/images/sharky-profile.png";
 
 interface WhatsAppConnectionCardProps {
   qrCode: string | null;
@@ -32,7 +33,7 @@ export const WhatsAppConnectionCard = ({
       minW={{
         base: "100%",
       }}
-      minH={{ base: "480px", md: "auto", lg: "280px", "2xl": "222px" }}
+      minH={{ base: "480px", md: "252px", lg: "280px", "2xl": "252px" }}
       maxH={{ xl: "fit-content" }}
       justifyContent="space-between"
       flexDir={{
@@ -110,6 +111,15 @@ export const WhatsAppConnectionCard = ({
               size={184}
               fgColor="#000000"
               bgColor="#ffffff"
+              imageSettings={{
+                src: SharkyProfile,
+                x: undefined,
+                y: undefined,
+                height: 50,
+                width: 50,
+                opacity: 1,
+                excavate: false,
+              }}
             />
           </Flex>
         )}

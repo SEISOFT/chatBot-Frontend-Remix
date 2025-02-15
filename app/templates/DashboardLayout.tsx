@@ -6,7 +6,7 @@ import { useNavigation } from "~/hooks/useNavigation";
 import { AuthProvider } from "~/providers/AuthProvider";
 import { NavigationProvider } from "~/providers/NavigationProvider";
 import { UserProvider } from "~/providers/UserProvider";
-import backgroundBodyAdmin from "~/assets/images/background-body-admin.webp";
+import bgRotated from "~/assets/images/bgRotated.png";
 
 export default function DashboardLayout() {
   return (
@@ -35,7 +35,7 @@ function Layout() {
   const navbarHeight = "50px";
 
   return (
-    <Box bgImage={backgroundBodyAdmin}>
+    <Box bgImage={bgRotated} bgPosition="bottom">
       <Sidebar />
       <Navbar />
 

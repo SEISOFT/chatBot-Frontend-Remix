@@ -16,7 +16,7 @@ import { SharkyBanner } from "~/components/molecules/SharkyBanner";
 import { useNavigation } from "~/hooks/useNavigation";
 import { SidebarItem } from "~/components/molecules/navigation/SidebarItem";
 import { colors } from "~/styles/colors";
-
+import sidebarBg from "~/assets/images/sidebarBg.png";
 //
 // 2.1. Definición del tipo para los items del Sidebar
 //
@@ -64,10 +64,7 @@ export const Sidebar: React.FC = () => {
   );
 
   // Dimensiones según la vista
-  const expandedWidth = useMemo(
-    () => (isMobile ? "314px" : "232px"),
-    [isMobile]
-  );
+  const expandedWidth = "232px";
   const collapsedWidth = "50px";
 
   // Cálculo del ancho y padding del sidebar
@@ -89,22 +86,27 @@ export const Sidebar: React.FC = () => {
     <Flex
       as="nav"
       position="fixed"
-      top={{ base: "unset", lg: "3" }}
+      top={{ base: "12", lg: "3" }}
       left={{ base: "0", lg: "3" }}
       w={sidebarWidth}
       zIndex={999}
       boxShadow="sm"
       flexDir="column"
-      h={isMobile ? "calc(100vh - 60px)" : "calc(100vh - 24px)"}
+      h={isMobile ? "calc(100vh)" : "calc(100vh - 24px)"}
       px={sidebarPaddingX}
-      py={2}
-      transition="width 0.4s, padding 0.4s"
+      py={{ base: 2, lg: 2 }}
+      // Color de fondo
       bg="white"
+      // Imagen de fondo
+      bgImage={`url(${sidebarBg})`}
+      // Ajustes de la imagen
+      bgRepeat="no-repeat"
+      bgSize="contain"
+      bgPosition="bottom"
+      transition="width 0.4s, padding 0.4s"
       display={isMobile && isSidebarCollapsed ? "none" : "block"}
-      border={`1px solid ${colors.Gray[100]}`}
       borderTop={{ base: 0, lg: `1px solid ${colors.Gray[100]}` }}
       borderRadius={{ base: 0, lg: "xl" }}
-      // Eventos para activar/desactivar el efecto hover (solo en desktop)
       onMouseEnter={() => {
         if (isSidebarCollapsed && !isMobile) {
           handleSidebarMouseEnter();
