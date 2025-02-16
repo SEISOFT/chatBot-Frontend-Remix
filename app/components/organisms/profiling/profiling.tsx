@@ -11,13 +11,14 @@ import {
   useToast,
   Text,
 } from "@chakra-ui/react";
-import { ProfilingForm } from "~/components/molecules/profiling/profilingForm";
 import { useProfiling } from "~/hooks/profiling/useProfiling";
 import { colors } from "~/styles/colors";
 import { Ico } from "~/assets/icons";
 import { useError } from "~/hooks/useError";
 import { stepsConfig } from "~/utils/profiling/ProfilingStepsConfig";
 import { questionsConfig } from "~/utils/profiling/questionsConfig";
+import { ProfilingForm } from "~/components/molecules/profiling/ProfilingForm";
+
 
 export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {
   const { reportError } = useError();
