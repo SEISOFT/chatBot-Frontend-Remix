@@ -1,8 +1,15 @@
-import { api } from "config/api";
-import { constants } from "config/constants";
-import { ReactNode, useMemo, useCallback, useState, useEffect } from "react";
+// app/providers/AuthProvider.tsx
+import { ReactNode, useEffect, useState, useMemo, useCallback } from "react";
+import { jwtDecode } from "jwt-decode";
 import { AuthContext } from "~/contexts/AuthContext";
+import { constants } from "config/constants";
 import { useError } from "~/hooks/useError";
+import { api } from "config/api";
+
+interface DecodedToken {
+  exp: number;
+  // Puedes incluir otros campos si los usas
+}
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -11,12 +18,34 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const { reportError } = useError();
-  useEffect(() => {
+
+  // Función para validar el token de forma inmediata
+  const validateToken = useCallback(() => {
     const token = localStorage.getItem(constants.JWT_SECRET);
-    if (token) {
-      setIsAuth(true);
+    if (!token) return false;
+    try {
+      const decoded = jwtDecode<DecodedToken>(token);
+      // El token expira en segundos, por lo que lo convertimos a milisegundos
+      if (decoded.exp * 1000 < Date.now()) {
+        // Token expirado
+        localStorage.removeItem(constants.JWT_SECRET);
+        return false;
+      }
+      return true;
+    } catch (error) {
+      localStorage.removeItem(constants.JWT_SECRET);
+      return false;
     }
   }, []);
+
+  // En el montaje, verificamos la validez del token
+  useEffect(() => {
+    if (validateToken()) {
+      setIsAuth(true);
+    } else {
+      setIsAuth(false);
+    }
+  }, [validateToken]);
 
   const login = useCallback(
     async (email: string, password: string) => {
@@ -33,17 +62,22 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
         const { token } = await response.json();
         localStorage.setItem(constants.JWT_SECRET, token);
-        setIsAuth(true);
+        if (validateToken()) {
+          setIsAuth(true);
+        } else {
+          throw new Error("Token inválido o expirado.");
+        }
       } catch (error) {
         reportError({
-          component: "AuthProvider.tsx Ln.39",
+          component: "AuthProvider.tsx",
           title: "Error al iniciar sesión",
           message: `${error}`,
           showInProd: true,
         });
+        setIsAuth(false);
       }
     },
-    [reportError]
+    [reportError, validateToken]
   );
 
   const logout = useCallback(() => {
@@ -51,12 +85,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsAuth(false);
   }, []);
 
-  const contextValue = useMemo(
-    () => ({ isAuth, login, logout }),
-    [isAuth, login, logout]
-  );
+  const contextValue = useMemo(() => ({ isAuth, login, logout }), [isAuth, login, logout]);
 
-  return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
