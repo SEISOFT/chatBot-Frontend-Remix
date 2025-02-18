@@ -17,7 +17,7 @@ import { Ico } from "~/assets/icons";
 import { useError } from "~/hooks/useError";
 import { stepsConfig } from "~/utils/profiling/ProfilingStepsConfig";
 import { questionsConfig } from "~/utils/profiling/questionsConfig";
-import { ProfilingForm } from "~/components/molecules/profiling/profilingForm";
+import { ProfilingForm } from "~/components/molecules/profiling/ProfilingForm";
 
 
 export const ProfilingWizard = ({ onComplete }: { onComplete: () => void }) => {

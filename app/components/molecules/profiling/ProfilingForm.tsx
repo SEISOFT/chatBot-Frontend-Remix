@@ -1,6 +1,6 @@
 import { Flex, Heading, Textarea } from "@chakra-ui/react";
 import { QuestionsConfig } from "../../organisms/profiling/types";
-import { ProfilingQuestion } from "./profilingQuestion";
+import { ProfilingQuestion } from "./ProfilingQuestion";
 
 interface ProfilingSectionProps<T> {
   data: T; // Datos actuales de la sección
